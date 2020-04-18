@@ -11,11 +11,11 @@ export default function Home(props){
     return (
         <Layout style={styles.container}>
             <View style={styles.top}>
-                <Text>Halo Home</Text>
                 <Image source={require('../assets/home.png')} style={{ width: "100%", height: "100%" }} />
             </View>
             <View style={styles.bottom}>
-                <Button style={styles.button} status='basic' onPress={goUploadScreen} >Take Mood</Button>
+                {/* <Text>Halo Home</Text> */}
+                <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
             </View>
         </Layout>
       
@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         borderTopRightRadius: 70,
-        borderTopLeftRadius: 70,
-        elevation: 1000
+        borderTopLeftRadius: 70
     },
     button: {
         margin: 2,
-        borderRadius: 100
+        borderRadius: 100,
+        height: 100,
+        width: 80
     }
 });
