@@ -28,7 +28,7 @@ export default function Result(props) {
     function handleClick(food) {
         console.log(`masuk handle click webview`);
         props.navigation.navigate(
-            'WebViewTest',
+            'Recommendation',
             { food }
         );
     }
@@ -44,7 +44,7 @@ export default function Result(props) {
                     <Text style={styles.card_description}>
                         {food}
                     </Text>
-                    <TouchableOpacity onPress={handleClick(food)}>
+                    <TouchableOpacity onPress={() => handleClick(food)}>
                         <Text style={styles.button}>View</Text>
                     </TouchableOpacity>
                 </View>

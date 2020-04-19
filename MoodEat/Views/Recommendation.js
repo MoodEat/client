@@ -1,9 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-native';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
 export default function Recommendation(props) {
-    console.log(props.food);
+    console.log('=========================');
+    console.log('ini props recommendation');
+    console.log(props.route.params.food);
+    console.log('=========================');
+
+    const latitude = useSelector((state) => state.user.latitude);
+    const longitude = useSelector((state) => state.user.longitude);
+
+    console.log('=========================');
+    console.log('latitude:' + latitude);
+    console.log('longitude:', longitude);
+    console.log('=========================');
+
 
     function Card({ card }) {
         const image = card.image;
@@ -27,11 +40,11 @@ export default function Recommendation(props) {
     return (
         <Layout style={styles.container}>
             <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
-            <FlatList
+            {/* <FlatList
                         data={recommendation}
                         renderItem={({ item, index }) => <Card card={item} />}
                         keyExtractor={(item, index) => index.toString()}
-                    />
+                    /> */}
         </Layout>
     )
 }

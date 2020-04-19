@@ -17,7 +17,7 @@ export default function CameraScreen(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhfoypma/image/upload';
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dczjlmvie/image/upload';
 
   useEffect(() => {
     (async () => {
@@ -72,7 +72,7 @@ export default function CameraScreen(props) {
     let base64Img = `data:image/jpg;base64,${photo.base64}`;
     let data = {
             "file": base64Img,
-            "upload_preset": "wlp7zivu",
+            "upload_preset": "cqrv53uz",
           }
       fetch(CLOUDINARY_URL,{
         body: JSON.stringify(data),
