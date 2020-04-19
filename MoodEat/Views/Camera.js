@@ -110,7 +110,7 @@ export default function CameraScreen(props) {
                   gender
                 }
                 dispatch(allActions.SET_USER(payload))
-                props.navigation.navigate('TesResult');
+                props.navigation.navigate('Result');
             }
       }).catch(err => console.log(err))
   }
