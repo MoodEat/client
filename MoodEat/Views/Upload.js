@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux'
+import allActions from '../stores/actions/index'
 import { StyleSheet, View, Image, Alert } from 'react-native';
 import { Layout, Button, Modal, Card, Text } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 
 
 export default function Home(props) {
+    const dispatch = useDispatch()
     const [photo, setPhoto] = useState(null)
     const [visible, setVisible] = useState(false);
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhfoypma/image/upload';
@@ -88,6 +91,14 @@ export default function Home(props) {
                 console.log('age', age);
                 console.log('gender', gender);
                 console.log('-----------------------------------');
+                let payload = {
+                    imageUrl,
+                    mood,
+                    age,
+                    gender
+                }
+                dispatch(allActions.SET_USER(payload))
+                props.navigation.navigate('TesResult');
             }
         }).catch(err => console.log(err))
     }

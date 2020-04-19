@@ -1,10 +1,5 @@
 const initialState = {
-    photo: '',
-    solution: [],
-    board: [],
-    baseBoard: [],
     loading: false,
-    isSolved: false,
     recommendation: [],
     mood: 'anger'
 }
