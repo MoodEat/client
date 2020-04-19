@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux'
+import allActions from '../stores/actions/index'
 import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Layout, Button, Icon } from '@ui-kitten/components';
@@ -10,6 +12,7 @@ const FlipIcon = (props) => (
   <Icon {...props} name='flip-2'/>
 )
 export default function CameraScreen(props) {
+  const dispatch = useDispatch()
     const camRef = useRef(null)
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -100,6 +103,14 @@ export default function CameraScreen(props) {
                 console.log('age', age);
                 console.log('gender', gender);
                 console.log('-----------------------------------');
+                let payload = {
+                  imageUrl,
+                  mood,
+                  age,
+                  gender
+                }
+                dispatch(allActions.SET_USER(payload))
+                props.navigation.navigate('TesResult');
             }
       }).catch(err => console.log(err))
   }
