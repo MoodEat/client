@@ -1,8 +1,33 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { StyleSheet, View, Image, ImageBackground } from 'react-native';
 import { Layout, Text, Button,  } from '@ui-kitten/components';
-export default function Home(props){
+import Constants from 'expo-constants';
+import * as Location from 'expo-location'
+import {useDispatch, useSelector} from 'react-redux'
+import {SET_LATITUDE, SET_LONGITUDE} from '../stores/actions/userAction'
 
+export default function Home(props){
+    const dispatch = useDispatch()
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+
+    useEffect(() => {
+        (async () => {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+        })();
+    },[]);
+
+    if (location) {
+        dispatch(SET_LATITUDE(location.coords.latitude))
+        dispatch(SET_LONGITUDE(location.coords.longitude))
+    }
 
     function goUploadScreen(){
         props.navigation.navigate('Upload');
@@ -19,7 +44,6 @@ export default function Home(props){
                 <Image source={require('../assets/home.png')} style={{ width: "100%", height: "100%" }} />
             </View>
             <View style={styles.bottom}>
-                {/* <Text>Halo Home</Text> */}
                 <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
                 <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button>
             </View>

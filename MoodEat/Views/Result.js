@@ -16,6 +16,7 @@ export default function Result(props) {
 
     console.log('=================================');
     console.log('mood:', mood);
+    console.log('user:',user);
     console.log('=================================');
 
     useEffect(() => {
