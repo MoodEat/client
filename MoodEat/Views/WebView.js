@@ -5,7 +5,7 @@ export default function WebViewTest() {
 
     return (
         <WebView
-            source={{ uri: 'http://google.com' }}
+            source={{ uri: 'https://reactjs.org/' }}
         />
     )
 
