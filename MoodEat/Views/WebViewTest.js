@@ -6,12 +6,9 @@ import { WebView } from 'react-native-webview';
 export default function WebViewTest() {
 
     return (
-        <View style={{ flex: 1 }}> 
             <WebView
                 source={{ uri: 'https://egghead.io/lessons/react-native-open-a-webpage-in-react-native-with-linking-and-webview' }}
-                style={{ flex: 1 }}
             />
-        </View>
 
     )
 
