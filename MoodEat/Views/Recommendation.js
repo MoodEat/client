@@ -3,7 +3,11 @@ import { StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-nat
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
 export default function Recommendation(props) {
-
+    function handleClick() {
+        console.log(`masuk handle click webview`);
+        
+        props.navigation.navigate('WebViewTest');
+    }
 
     return (
         <Layout style={styles.container}>
@@ -17,6 +21,9 @@ export default function Recommendation(props) {
                     <Text style={styles.card_description_address}>
                     Jl. Pesanggrahan No. 168L, Puri Indah, Jakarta
                     </Text>
+                    <TouchableOpacity onPress={handleClick}>
+                        <Text style={styles.button}>View</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </Layout>

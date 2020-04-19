@@ -39,6 +39,10 @@ export default function Result(props) {
         props.navigation.navigate('Recommendation');
     }
 
+    function goRecommendationScreen() {
+        props.navigation.navigate('Recommendation')
+    }
+
     return (
         <Layout style={styles.container}>
             <View style={styles.top_result}>
@@ -50,6 +54,7 @@ export default function Result(props) {
                     <Text style={styles.result_description}>You seems to be:</Text>
                     <Text style={styles.result_description}>Happy</Text>
                 </View>
+                <Button style={styles.button} status='basic' onPress={goRecommendationScreen} >Recommendation</Button>
             </View>
             <View style={styles.bottom_result}>
                 {/* <Text style={styles.recommendation_heading}>

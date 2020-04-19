@@ -12,6 +12,7 @@ import ResultScreen from './Views/Result';
 import RecommendationScreen from './Views/Recommendation';
 import { Provider } from 'react-redux';
 import store from './stores/store';
+import WebViewTest from './Views/WebView';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ export default function App() {
               <Stack.Screen name="Gallery" component={GalleryScreen} />
               <Stack.Screen name="Result" component={ResultScreen} options={{ headerShown: false }} />
               <Stack.Screen name="Recommendation" component={RecommendationScreen} />
+              <Stack.Screen name="WebViewTest" component={WebViewTest} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
