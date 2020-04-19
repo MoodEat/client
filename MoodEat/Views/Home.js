@@ -1,8 +1,33 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { StyleSheet, View, Image, ImageBackground } from 'react-native';
 import { Layout, Text, Button,  } from '@ui-kitten/components';
-export default function Home(props){
+import Constants from 'expo-constants';
+import * as Location from 'expo-location'
 
+export default function Home(props){
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+
+    // useEffect(() => {
+        (async () => {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+        })();
+    // });
+
+    let text = 'Waiting..';
+    if (errorMsg) {
+        text = errorMsg;
+    } else if (location) {
+        text = JSON.stringify(location);
+        // console.log(text,'lokasiiiiiii');
+    }
 
     function goUploadScreen(){
         props.navigation.navigate('Upload');
@@ -19,7 +44,7 @@ export default function Home(props){
                 <Image source={require('../assets/home.png')} style={{ width: "100%", height: "100%" }} />
             </View>
             <View style={styles.bottom}>
-                {/* <Text>Halo Home</Text> */}
+                <Text>Halo Home{text}</Text>
                 <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
                 <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button>
             </View>
