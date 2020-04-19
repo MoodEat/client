@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
-import { fetchRecommendation } from '../stores/actions';
+import allActions from '../stores/actions';
 
 export default function Result(props) {
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function Result(props) {
 
     useEffect(() => {
         console.log('masuk use effect');
-        dispatch(fetchRecommendation(mood));
+        dispatch(allActions.fetchRecommendation(mood));
     }, [dispatch])
 
     function Card({ card }) {

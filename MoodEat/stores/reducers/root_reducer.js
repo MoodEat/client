@@ -5,6 +5,4 @@ const rootReducers = combineReducers({
   categoryReducer: categoryReducer
 })
 
-
-
 export default rootReducers
