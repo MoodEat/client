@@ -1,16 +1,17 @@
 const initialState = {
-    loading: false,
-    recommendation: [],
-    mood: 'anger'
+    photoUrl: '',
+    mood: '',
+    age: '',
+    gender: ''
 }
 
-export default function categoryReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
     if (action.type === 'SET_PHOTO') {
         return {
             ...state,
             photo: action.payload
         }
-    } else if (action.type === 'SET_RECOMMENDATION') {
+    } else if (action.type === 'SET_MOOD') {
         return {
             ...state,
             recommendation: action.payload
