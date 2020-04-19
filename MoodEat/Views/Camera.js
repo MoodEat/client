@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { Text, View, TouchableOpacity,Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
+import { Layout, Button, Icon } from '@ui-kitten/components';
 
-export default function CameraScreen() {
+const CameraIcon = (props) => (
+  <Icon {...props} name='camera'/>
+);
+const FlipIcon = (props) => (
+  <Icon {...props} name='flip-2'/>
+)
+export default function CameraScreen(props) {
     const camRef = useRef(null)
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
-
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhfoypma/image/upload';
 
   useEffect(() => {
@@ -30,76 +36,161 @@ export default function CameraScreen() {
         allowsEditing: true,
         aspect: [4, 3],
         quality: 0.5,
-        // base64: true
+        base64: true
       })
-    //   let base64Img = `data:image/jpg;base64,${picResult.base64}`;
-      setPhoto(picResult.uri)
-      console.log('picresult---------', picResult);
-    //   let data = {
-    //     "file": base64Img,
-    //     "upload_preset": "wlp7zivu",
-    //   }
-      // console.log(data);
-    //   fetch(CLOUDINARY_URL,{
-    //     body: JSON.stringify(data),
-    //     headers: {
-    //         'content-type': 'application/json'
-    //     },
-    //     method: 'POST'
-    //   }).then(async r => {
-    //       let result = await r.json()
-    //       console.log(result,'ini resuiuuuuuult');
-    //       console.log('---------------------------------------------');
-    //       console.log(result.info.detection.adv_face.data,'data ---------------');
-          
-          
-    //   }).catch(err => console.log(err))
-      
+      setPhoto(picResult)
     }
   }
 
-  if (photo !== null) {
-    return (
-        <View>
-            <Image source={{uri: photo}} style={{ width: "100%", height: "100%" }} />
-        </View>
-    )
+  function deletePhoto() {
+    setPhoto(null)
   }
 
+  function getMood(emotionValue) {
+        let max = Math.max(emotionValue.anger, emotionValue.contempt, emotionValue.disgust, emotionValue.fear, emotionValue.happiness, emotionValue.neutral, emotionValue.sadness, emotionValue.surprise)
+        let emotions = [
+                {"mood": "anger", "value": emotionValue.anger },
+                {"mood": "contempt", "value": emotionValue.contempt },
+                {"mood": "disgust", "value": emotionValue.disgust },
+                {"mood": "fear", "value": emotionValue.fear },
+                {"mood": "happiness", "value": emotionValue.happiness },
+                {"mood": "neutral", "value": emotionValue.neutral },
+                {"mood": "sadness", "value": emotionValue.sadness },
+                {"mood": "surprise", "value": emotionValue.surprise}
+            ]
+            console.log('-----------------------------------');
+            console.log(emotions);
+            console.log('-----------------------------------');
+            
+        return emotions.find(emotion => emotion.value === max)
+    }
+
+  function uploadPhoto() {
+    let base64Img = `data:image/jpg;base64,${photo.base64}`;
+    let data = {
+            "file": base64Img,
+            "upload_preset": "wlp7zivu",
+          }
+      fetch(CLOUDINARY_URL,{
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json'
+        },
+        method: 'POST'
+      }).then(async r => {
+          let result = await r.json()
+          if (result.info.detection.adv_face.data === undefined) {
+                console.log('masuuuk');
+                Alert.alert(
+                            'Face is not detected',
+                            'Please retake your face picture'
+                );
+                setPhoto(null)
+                props.navigation.navigate('Upload');
+                return
+            } else {
+                let emotionValue = result.info.detection.adv_face.data[0].attributes.emotion
+                let mood = getMood(emotionValue).mood
+                let imageUrl = result.url
+                let age = result.info.detection.adv_face.data[0].attributes.age
+                let gender = result.info.detection.adv_face.data[0].attributes.gender
+                console.log('-----------------------------------');
+                console.log('imageUrl',imageUrl);
+                console.log('mooooood', mood);
+                console.log('age', age);
+                console.log('gender', gender);
+                console.log('-----------------------------------');
+            }
+      }).catch(err => console.log(err))
+  }
+
+  if (photo !== null) {
+        return (
+            <Layout style={styles.container}>
+                <View style={styles.top}>
+                    <Image source={{uri: photo.uri}} style={{ width: "90%", height: "90%" }} />
+                </View>
+                <View style={styles.bottom}>
+                    <Button style={styles.button} status='basic' onPress={uploadPhoto}>Analyze Mood</Button>
+                    <Button style={styles.button} status='basic' onPress={deletePhoto}>Cancel</Button>
+                </View>
+            </Layout>
+        )
+    }
+
   return (
-    <View style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type} ref={camRef} autoFocus={'on'}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'row',
-          }}>
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: 'flex-end',
-              alignItems: 'center',
-            }}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{
-              flex: 0.8,
-              alignSelf: 'flex-end',
-              alignItems: 'center',
-            }} onPress={ takePicture } >
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>Take</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.bottomCamera}>
+        <Button style={styles.buttonCamera} 
+          appearance='ghost'
+          status = 'basic'
+          accessoryLeft={CameraIcon}  
+          onPress={takePicture} />
+        <Button style={styles.buttonCamera}
+          appearance='ghost'
+          status='basic'
+          accessoryLeft={FlipIcon}
+          onPress={() => {
+                setType(
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                );
+              }}/>
+      </View>
       </Camera>
-    </View>
   );
 
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f0c869',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%'
+    },
+    top: {
+        flex: 4,
+        backgroundColor: '#f0c869',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    bottom: {
+        flex: 2,
+        backgroundColor: '#fff',
+        textDecorationColor: '#000',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        borderTopRightRadius: 70,
+        borderTopLeftRadius: 70
+    },
+    bottomCamera: {
+      flex: 1,
+      backgroundColor: 'transparent',
+      textDecorationColor: '#000',
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      width: '100%',
+    },
+    button: {
+        margin: 10,
+        borderRadius: 100,
+        height: 70,
+        width: 150,
+        backgroundColor: '#f0c869'
+    },
+    buttonCamera: {
+      margin: 20,
+      borderRadius: 100,
+      height: 70,
+      width: 70,
+      borderColor: '#f0c869',
+      marginBottom: 50
+    }
+});
