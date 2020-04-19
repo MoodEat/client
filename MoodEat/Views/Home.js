@@ -10,7 +10,7 @@ export default function Home(props){
 
     function goResultScreen() {
         console.log('masuk button result screen');
-        props.navigation.navigate('Result');
+        props.navigation.navigate('WebViewTest');
     }
 
     return (
