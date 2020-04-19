@@ -8,6 +8,8 @@ import HomeScreen from './Views/Home'
 import UploadScreen from './Views/Upload'
 import CameraScreen from './Views/Camera'
 import GalleryScreen from './Views/Gallery'
+import ResultScreen from './Views/Result';
+import RecommendationScreen from './Views/Recommendation';
 const Stack = createStackNavigator();
 
 
@@ -22,11 +24,11 @@ export default function App() {
             <Stack.Screen name="Upload" component={UploadScreen} />
             <Stack.Screen name="Camera" component={CameraScreen} />
             <Stack.Screen name="Gallery" component={GalleryScreen} />
+            <Stack.Screen name="Result" component={ResultScreen} options={{headerShown: false}} />
+          <Stack.Screen name="Recommendation" component={RecommendationScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ApplicationProvider>
     </>
   );
 }
-
-
