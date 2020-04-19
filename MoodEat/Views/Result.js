@@ -12,6 +12,8 @@ export default function Result(props) {
     const user = useSelector((state) => state.user);
     const mood = user.mood;
     const photo = user.photoUrl;
+    const latitude = user.latitude;
+    const longitude = user.longitude;
 
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
@@ -27,10 +29,17 @@ export default function Result(props) {
     }, [dispatch])
 
     function handleClick(food) {
+        
+        let payload = {
+            food,
+            latitude,
+            longitude
+        }
+
+        dispatch(allActions.fetchRestaurant(payload))
         console.log(`masuk handle click webview`);
         props.navigation.navigate(
             'Recommendation',
-            { food }
         );
     }
 

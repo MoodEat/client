@@ -1,36 +1,36 @@
 import React from 'react';
-import { useSelector } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
 export default function Recommendation(props) {
-    console.log('=========================');
-    console.log('ini props recommendation');
-    console.log(props.route.params.food);
-    console.log('=========================');
 
-    const latitude = useSelector((state) => state.user.latitude);
-    const longitude = useSelector((state) => state.user.longitude);
+    const restaurant = useSelector((state) => state.restaurant);
 
-    console.log('=========================');
-    console.log('latitude:' + latitude);
-    console.log('longitude:', longitude);
-    console.log('=========================');
+    console.log('===================');
+    console.log('restaurant:', restaurant);
+    console.log('===================');
 
-
+    function handleClick(url) {
+        props.navigation.navigate(
+            'WebViewTest',
+            { url }
+        );
+    }
+    
     function Card({ card }) {
-        const image = card.image;
-        const food = card.food;
+        const image = card.photo_url;
+        const name = card.name;
 
         return (
             <View style={styles.card_container}>
                 <Image source={{ uri: image }} style={styles.card_image} />
                 <View style={styles.card_description_container}>
                     <Text style={styles.card_description}>
-                        {food}
+                        {name}
                     </Text>
-                    <TouchableOpacity onPress={handleClick(food)}>
-                        <Text style={styles.button}>View</Text>
+                    <TouchableOpacity onPress={handleClick(url)}>
+                        <Text style={styles.button}>Details</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -40,11 +40,11 @@ export default function Recommendation(props) {
     return (
         <Layout style={styles.container}>
             <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
-            {/* <FlatList
-                        data={recommendation}
+            <FlatList
+                        data={restaurant}
                         renderItem={({ item, index }) => <Card card={item} />}
                         keyExtractor={(item, index) => index.toString()}
-                    /> */}
+                    />
         </Layout>
     )
 }

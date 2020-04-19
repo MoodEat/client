@@ -3,11 +3,13 @@ import React from 'react';
 import { View } from 'react-native'
 import { WebView } from 'react-native-webview';
 
-export default function WebViewTest() {
+export default function WebViewTest(props) {
 
+    console.log(props.route.params.url);
+    
     return (
             <WebView
-                source={{ uri: 'https://egghead.io/lessons/react-native-open-a-webpage-in-react-native-with-linking-and-webview' }}
+                source={{ uri: url }}
             />
 
     )
