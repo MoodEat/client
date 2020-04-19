@@ -10,6 +10,11 @@ export default function categoryReducer(state = initialState, action) {
             ...state,
             restaurants: action.payload
         }
+    } else if (action.type === 'SET_LOADING') {
+        return {
+            ...state,
+            loading: action.payload
+        }
     }
     return state
 }
