@@ -1,7 +1,7 @@
 const initialState = {
     loading: false,
     recommendation: [],
-    mood: 'anger'
+    mood: ''
 }
 
 export default function categoryReducer(state = initialState, action) {

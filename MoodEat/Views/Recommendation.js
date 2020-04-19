@@ -1,31 +1,50 @@
 import React from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
 export default function Recommendation(props) {
-    function handleClick() {
-        console.log(`masuk handle click webview`);
-        
-        props.navigation.navigate('WebViewTest');
+
+    const restaurant = useSelector((state) => state.restaurant);
+
+    console.log('===================');
+    console.log('restaurant:', restaurant);
+    console.log('===================');
+
+    function handleClick(url) {
+        props.navigation.navigate(
+            'WebViewTest',
+            { url }
+        );
+    }
+    
+    function Card({ card }) {
+        const image = card.photo_url;
+        const name = card.name;
+
+        return (
+            <View style={styles.card_container}>
+                <Image source={{ uri: image }} style={styles.card_image} />
+                <View style={styles.card_description_container}>
+                    <Text style={styles.card_description}>
+                        {name}
+                    </Text>
+                    <TouchableOpacity onPress={handleClick(url)}>
+                        <Text style={styles.button}>Details</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
     }
 
     return (
         <Layout style={styles.container}>
             <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
-            <View style={styles.card_container}>
-                <Image source={require('../assets/chocolate.jpeg')} style={styles.card_image} />
-                <View style={styles.card_description_container}>
-                    <Text style={styles.card_description}>
-                        Haji Mamat
-                    </Text>
-                    <Text style={styles.card_description_address}>
-                    Jl. Pesanggrahan No. 168L, Puri Indah, Jakarta
-                    </Text>
-                    <TouchableOpacity onPress={handleClick}>
-                        <Text style={styles.button}>View</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <FlatList
+                        data={restaurant}
+                        renderItem={({ item, index }) => <Card card={item} />}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
         </Layout>
     )
 }

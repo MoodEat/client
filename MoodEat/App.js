@@ -11,7 +11,7 @@ import ResultScreen from './Views/Result';
 import RecommendationScreen from './Views/Recommendation';
 import { Provider } from 'react-redux';
 import store from './stores/store';
-import WebViewTest from './Views/WebView';
+import WebViewTest from './Views/WebViewTest';
 
 import TesResultScreen from './Views/TesResult'
 
@@ -39,4 +39,4 @@ export default function App() {
       </Provider>
     </>
   );
-}
+};
