@@ -9,6 +9,10 @@ const setRestaurant = (data) => {
     return { type: 'SET_RESTAURANT', payload: data };
 }
 
+const setLoading = (data) => {
+    return { type: 'SET_LOADING', payload: data };
+}
+
 export const fetchRestaurant = (payload) => {
     console.log(`===========================`);
     console.log(`masuk fetch restaurant`);
@@ -28,20 +32,24 @@ export const fetchRestaurant = (payload) => {
     console.log(`===========================`);
 
     return (dispatch) => {
+        setLoading(true);
         axios({
             method: 'post',
             url: `http://localhost:3000/restaurant/${food}`,
             data: {
                 lat: latitude,
-                longitude: longitude
+                longtitude: longitude
             }
         })
             .then(({ data }) => {
-                // console.log(data);
+                console.log(data);
                 dispatch(setRestaurant(data))
             })
             .catch(error => {
                 console.log(error);
+            })
+            .finally(_ => {
+                setLoading(false);
             })
     }
 }
