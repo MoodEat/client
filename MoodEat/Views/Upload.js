@@ -52,9 +52,9 @@ export default function Home(props) {
                 {"mood": "sadness", "value": emotionValue.sadness },
                 {"mood": "surprise", "value": emotionValue.surprise}
             ]
-            console.log('-----------------------------------');
-            console.log(emotions);
-            console.log('-----------------------------------');
+            // console.log('-----------------------------------');
+            // console.log(emotions);
+            // console.log('-----------------------------------');
             
         return emotions.find(emotion => emotion.value === max)
     }
@@ -74,11 +74,11 @@ export default function Home(props) {
             method: 'POST'
         }).then(async r => {
             let result = await r.json()
-            console.log('--------------');
+            // console.log('--------------');
             
-            console.log(result);
+            // console.log(result);
 
-            console.log('--------------');
+            // console.log('--------------');
 
             
             if (result.error) {

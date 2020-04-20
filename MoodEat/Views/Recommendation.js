@@ -43,10 +43,14 @@ export default function Recommendation(props) {
     }
 
     function Card({ card }) {
-        const image = card.photo_url;
+        let image = card.photo_url;
         const name = card.name;
         const url = card.url;
         const id = card.idRestaurant;
+
+        if (image == '') {
+            image = 'https://i.imgur.com/0jEmiwl.jpg'
+        }
 
         return (
             <View style={styles.card_container}>

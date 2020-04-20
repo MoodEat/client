@@ -37,7 +37,6 @@ export default function Result(props) {
             latitude,
             longitude
         }
-
         dispatch(allActions.fetchRestaurant(payload))
         console.log(`masuk handle click webview`);
         props.navigation.navigate(
@@ -46,9 +45,13 @@ export default function Result(props) {
     }
 
     function Card({ card }) {
-        const image = card.image;
+        let image = card.image;
         const food = card.food;
 
+        if (image == '') {
+            image = 'https://i.imgur.com/0jEmiwl.jpg'
+        }
+        
         return (
             <View style={styles.card_container}>
                 <Image source={{ uri: image }} style={styles.card_image} />
