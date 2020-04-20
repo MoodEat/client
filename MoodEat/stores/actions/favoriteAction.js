@@ -12,10 +12,6 @@ const getFavorite = (data) => {
     return { type: 'GET_FAVORITE', payload: data }
 }
 
-const setRefresh = (data) => {
-    return { type: 'SET_REFRESH', payload: data }
-}
-
 export const addFavorite = (id) => {
     setLoading(true);
 
@@ -92,7 +88,6 @@ export const deleteFavorite = (id) => {
                         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWM0NThiODY3MWM3NjA5MjM5ZSIsImVtYWlsIjoiYXJkYTFAbWFpbC5jb20iLCJpYXQiOjE1ODczOTUzNDB9.Z0KR7R4_-l3aqXcmMMFU0xi4E4785ztswB-eAFUtfhE'
                     }
                 })
-                // return
             })
             .then(({ data }) => {
                 dispatch(getFavorite(data));
@@ -105,10 +100,4 @@ export const deleteFavorite = (id) => {
                 setLoading(false);
             })
     }
-}
-
-export const changeRefresh = () => {
-    console.log('masuk refresh');
-    console.log('==============');
-    setRefresh(true)
 }

@@ -1,7 +1,6 @@
 const initialState = {
     loading: false,
     error: null,
-    isRefreshing: false,
     favorite: []
 }
 
@@ -20,11 +19,6 @@ export default function favoriteReducer(state = initialState, action) {
         return {
             ...state,
             favorite: action.payload
-        }
-    } else if (action.type == 'SET_REFRESH') {
-        return {
-            ...state,
-            isRefreshing: action.payload
         }
     }
 
