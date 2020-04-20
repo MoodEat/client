@@ -6,7 +6,7 @@ import * as Location from 'expo-location'
 import {useDispatch, useSelector} from 'react-redux'
 import {SET_LATITUDE, SET_LONGITUDE} from '../stores/actions/userAction'
 
-export default function Home(props){
+export default function Home(props) {
     const dispatch = useDispatch()
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);

@@ -4,25 +4,18 @@ const initialState = {
     favorite: []
 }
 
-export default function favoritReducer(state = initialState, action) {
+export default function favoriteReducer(state = initialState, action) {
     if (action.type == 'SET_FAVORITE') {
-        const isExist = state.find(watch => watch.country === action.country)
-
-        if (!isExist) {
             return {
                 ...state,
-                favorite: action.payload
+                favorite: state.favorite.concat(action.payload)
             };
-        } else {
-            return state;
-        }
-        
     } else if (action.type == 'SET_LOADING') {
         return {
             ...state,
             loading: action.payload
         }
-    } else if (action.type == 'FETCH_FAVORITE') {
+    } else if (action.type == 'GET_FAVORITE') {
         return {
             ...state,
             favorite: action.payload

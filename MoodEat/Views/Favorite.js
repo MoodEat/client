@@ -1,52 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import allActions from '../stores/actions';
 
-export default function Recommendation(props) {
-    const dispatch = useDispatch()
-    const restaurant = useSelector((state) => state.restaurant.restaurants);
-    const loading = useSelector((state) => state.restaurant.loading);
-    
-    // console.log('===================');
-    // console.log('restaurant:', restaurant);
-    // console.log('===================');
-
-    function handleClick(url) {
-        props.navigation.navigate(
-            'Detail',
-            { 'url': url }
-        );
-    }
-
-    function handleAddFavorite(id) {
-        console.log('=================================')
-        console.log('restaurant id di recommendation:', id)
-        console.log('=================================')
-
-        dispatch(allActions.addFavorite(id));
-    }
-
-    console.log('=================================')
-    console.log('state favorite:', useSelector((state) => state.favorite.favorite))
-    console.log('=================================')
-
-    if (loading) {
-        console.log('===================');
-        console.log('masuk loading');
-        console.log('===================');
-
-        return (
-            <Text style={styles.card_description}>Loading...</Text>
-        )
-    }
+export default function FavoriteScreen (props) {
+    const dispatch = useDispatch();
+    let favorite = props.route.params.favorite;
+    // let refresh = false;
 
     function Card({ card }) {
         const image = card.photo_url;
         const name = card.name;
         const url = card.url;
-        const id = card.idRestaurant;
+        const id = card._id;
+
+        function handleClick(url) {
+            props.navigation.navigate(
+                'WebViewTest',
+                { 'url': url }
+            );
+        }
+        
+        function handleDelete() {
+            dispatch(allActions.deleteFavorite(id));
+            favorite = props.route.params.favorite
+        }
 
         return (
             <View style={styles.card_container}>
@@ -58,29 +37,30 @@ export default function Recommendation(props) {
                     <TouchableOpacity onPress={() => handleClick(url)}>
                         <Text style={styles.button}>Details</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleAddFavorite(id)}>
-                        <Text style={styles.button}>Add To Favorite</Text>
+                    <TouchableOpacity onPress={() => handleDelete()}>
+                        <Text style={styles.button}>Delete</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         )
     }
 
-    if (restaurant.length == 0) {
+    if (favorite.length == 0) {
         return (
             <Text style={styles.card_description}>
-                There is no restaurant on your nearby location
+                There is no restaurant on your favorite list
             </Text>
         )
     } else {
         return (
             <Layout style={styles.container}>
                 <View style={styles.bottom_result}>
-                    <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+                    <Text style={styles.recommendation_heading}>Your Favorite Restaurants List</Text>
                     <FlatList
-                        data={restaurant}
+                        data={favorite}
                         renderItem={({ item, index }) => <Card card={item} />}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item, index) => index.toString()} 
+                        extraData={favorite}
                     />
                 </View>
             </Layout>
