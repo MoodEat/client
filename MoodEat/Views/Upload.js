@@ -10,7 +10,9 @@ export default function Home(props) {
     const dispatch = useDispatch();
     const [photo, setPhoto] = useState(null);
     const [visible, setVisible] = useState(false);
+  
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
+  
     function goCameraScreen() {
         props.navigation.navigate('Camera');
     }
@@ -63,6 +65,7 @@ export default function Home(props) {
                 "file": base64Img,
                 "upload_preset": "sn1chgl3",
             }
+        
         fetch(CLOUDINARY_URL,{
             body: JSON.stringify(data),
             headers: {
@@ -71,7 +74,14 @@ export default function Home(props) {
             method: 'POST'
         }).then(async r => {
             let result = await r.json()
-            if (result.info.detection.adv_face.data === undefined) {
+            console.log('--------------');
+            
+            console.log(result);
+
+            console.log('--------------');
+
+            
+            if (result.error) {
                 console.log('masuuuk');
                 Alert.alert(
                             'Face is not detected',
