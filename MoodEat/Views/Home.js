@@ -33,10 +33,10 @@ export default function Home(props){
         props.navigation.navigate('Upload');
     }
 
-    function goResultScreen() {
-        console.log('masuk button result screen');
-        props.navigation.navigate('WebViewTest');
-    }
+    // function goResultScreen() {
+    //     console.log('masuk button result screen');
+    //     props.navigation.navigate('WebViewTest');
+    // }
 
     return (
         <Layout style={styles.container}>
@@ -45,7 +45,7 @@ export default function Home(props){
             </View>
             <View style={styles.bottom}>
                 <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
-                <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button>
+                {/* <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button> */}
             </View>
         </Layout>
     )

@@ -11,6 +11,8 @@ export default function Result(props) {
     
     const user = useSelector((state) => state.user);
     const mood = user.mood;
+    const gender = user.gender;
+    const age = user.age;
     const photo = user.photoUrl;
     const latitude = user.latitude;
     const longitude = user.longitude;
@@ -73,7 +75,7 @@ export default function Result(props) {
                     <Image source={{ uri: photo }} style={styles.result_photo} />
                 </View>
                 <View style={styles.result_description_container} >
-                    <Text style={styles.result_description}>Hi There!</Text>
+                    <Text style={styles.result_description}>Hi {gender}, age({age})</Text>
                     <Text style={styles.result_description}>Based on your photo</Text>
                     <Text style={styles.result_description}>We see a lot of</Text>
                     <Text style={styles.result_description_name}>{mood}!</Text>

@@ -33,6 +33,7 @@ export default function Recommendation(props) {
         const image = card.photo_url;
         const name = card.name;
         const url = card.url
+        const location = card.location.locality_verbose
 
         console.log('=================');
         console.log('url:', url);
@@ -48,6 +49,9 @@ export default function Recommendation(props) {
                     <TouchableOpacity onPress={() => handleClick(url)}>
                         <Text style={styles.button}>Details</Text>
                     </TouchableOpacity>
+                    <Text style={styles.card_description}>
+                        {location}
+                    </Text>
                 </View>
             </View>
         )

@@ -4,7 +4,8 @@ const initialState = {
     age: '',
     gender: '',
     latitude: '',
-    longitude: ''
+    longitude: '',
+    token: null
 }
 
 export default function userReducer(state = initialState, action) {

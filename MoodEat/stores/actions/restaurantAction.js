@@ -34,11 +34,11 @@ export const fetchRestaurant = (payload) => {
     return (dispatch) => {
         setLoading(true);
         axios({
-            method: 'post',
+            method: 'get',
             url: `http://localhost:3000/restaurant/${food}`,
-            data: {
+            headers: {
                 lat: latitude,
-                longtitude: longitude
+                longitude: longitude
             }
         })
             .then(({ data }) => {
@@ -53,3 +53,4 @@ export const fetchRestaurant = (payload) => {
             })
     }
 }
+
