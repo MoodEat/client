@@ -12,6 +12,10 @@ const getFavorite = (data) => {
     return { type: 'GET_FAVORITE', payload: data }
 }
 
+const setRefresh = (data) => {
+    return { type: 'SET_REFRESH', payload: data }
+}
+
 export const addFavorite = (id) => {
     setLoading(true);
 
@@ -20,7 +24,7 @@ export const addFavorite = (id) => {
             method: 'post',
             url: 'http://localhost:3000/favorites',
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWM0NThiODY3MWM3NjA5MjM5ZSIsImVtYWlsIjoiYXJkYTFAbWFpbC5jb20iLCJpYXQiOjE1ODczOTUzNDB9.Z0KR7R4_-l3aqXcmMMFU0xi4E4785ztswB-eAFUtfhE'
             },
             data: {
                 restaurantId: id
@@ -49,7 +53,7 @@ export const fetchFavorite = () => {
             method: 'get',
             url: 'http://localhost:3000/favorites',
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWM0NThiODY3MWM3NjA5MjM5ZSIsImVtYWlsIjoiYXJkYTFAbWFpbC5jb20iLCJpYXQiOjE1ODczOTUzNDB9.Z0KR7R4_-l3aqXcmMMFU0xi4E4785ztswB-eAFUtfhE'
             }
         })
             .then(({ data }) => {
@@ -76,7 +80,7 @@ export const deleteFavorite = (id) => {
             method: 'delete',
             url: `http://localhost:3000/favorites/${id}`,
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWM0NThiODY3MWM3NjA5MjM5ZSIsImVtYWlsIjoiYXJkYTFAbWFpbC5jb20iLCJpYXQiOjE1ODczOTUzNDB9.Z0KR7R4_-l3aqXcmMMFU0xi4E4785ztswB-eAFUtfhE'
             }
         })
             .then(({ data }) => {
@@ -85,19 +89,26 @@ export const deleteFavorite = (id) => {
                     method: 'get',
                     url: 'http://localhost:3000/favorites',
                     headers: {
-                        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWM0NThiODY3MWM3NjA5MjM5ZSIsImVtYWlsIjoiYXJkYTFAbWFpbC5jb20iLCJpYXQiOjE1ODczOTUzNDB9.Z0KR7R4_-l3aqXcmMMFU0xi4E4785ztswB-eAFUtfhE'
                     }
                 })
+                // return
             })
             .then(({ data }) => {
                 dispatch(getFavorite(data));
-                // dispatch(setFavorite(data));
             })
             .catch(error => {
-                console.log(error);
+                console.log('===========');
+                console.log('masuk fetch data habis delete error', error);
             })
             .finally(_ => {
                 setLoading(false);
             })
     }
+}
+
+export const changeRefresh = () => {
+    console.log('masuk refresh');
+    console.log('==============');
+    setRefresh(true)
 }

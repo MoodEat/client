@@ -1,7 +1,7 @@
 import { fetchRecommendation } from './fetch_recommendation'
 import SET_USER from './userAction';
 import { fetchRestaurant } from './restaurantAction';
-import { addFavorite, fetchFavorite, deleteFavorite } from './favoriteAction';
+import { addFavorite, fetchFavorite, deleteFavorite, changeRefresh } from './favoriteAction';
 
 const allActions = {
     fetchRecommendation,
@@ -9,7 +9,8 @@ const allActions = {
     fetchRestaurant,
     addFavorite,
     fetchFavorite,
-    deleteFavorite
+    deleteFavorite,
+    changeRefresh
 }
 
 export default allActions

@@ -18,7 +18,6 @@ export default function Result(props) {
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
 
-    const favorite = useSelector((state) => state.favorite.favorite);
 
     console.log('=================================');
     console.log('mood:', mood);
@@ -27,7 +26,6 @@ export default function Result(props) {
 
     useEffect(() => {
         dispatch(allActions.fetchRecommendation(mood));
-        dispatch(allActions.fetchFavorite());
     }, [dispatch])
 
     function handleClick(food) {
@@ -65,14 +63,7 @@ export default function Result(props) {
                 </View>
             </View>
         )
-    }
-
-    function favoritePage() {
-        props.navigation.navigate(
-            'Favorite',
-            { 'favorite': favorite }
-        );
-    }
+    }    
 
     return (
         <Layout style={styles.container}>
@@ -85,9 +76,7 @@ export default function Result(props) {
                     <Text style={styles.result_description}>Based on your photo</Text>
                     <Text style={styles.result_description}>We see a lot of</Text>
                     <Text style={styles.result_description_name}>{mood}!</Text>
-                    <TouchableOpacity onPress={() => favoritePage()}>
-                        <Text style={styles.button}>Favorite Page</Text>
-                    </TouchableOpacity>
+                    
                 </View>
                 <View>
                     
