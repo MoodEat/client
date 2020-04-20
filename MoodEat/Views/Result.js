@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
-import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
+import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import allActions from '../stores/actions';
 
@@ -18,14 +18,16 @@ export default function Result(props) {
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
 
+    const favorite = useSelector((state) => state.favorite.favorite);
+
     console.log('=================================');
     console.log('mood:', mood);
     console.log('user:',user);
     console.log('=================================');
 
     useEffect(() => {
-        console.log('masuk use effect');
         dispatch(allActions.fetchRecommendation(mood));
+        dispatch(allActions.fetchFavorite());
     }, [dispatch])
 
     function handleClick(food) {
@@ -35,7 +37,6 @@ export default function Result(props) {
             latitude,
             longitude
         }
-
         dispatch(allActions.fetchRestaurant(payload))
         console.log(`masuk handle click webview`);
         props.navigation.navigate(
@@ -44,9 +45,13 @@ export default function Result(props) {
     }
 
     function Card({ card }) {
-        const image = card.image;
+        let image = card.image;
         const food = card.food;
 
+        if (image == '') {
+            image = 'https://i.imgur.com/0jEmiwl.jpg'
+        }
+        
         return (
             <View style={styles.card_container}>
                 <Image source={{ uri: image }} style={styles.card_image} />
@@ -62,8 +67,11 @@ export default function Result(props) {
         )
     }
 
-    function recommendation_page() {
-        props.navigation.navigate('Recommendation');
+    function favoritePage() {
+        props.navigation.navigate(
+            'Favorite',
+            { 'favorite': favorite }
+        );
     }
 
     return (
@@ -77,15 +85,15 @@ export default function Result(props) {
                     <Text style={styles.result_description}>Based on your photo</Text>
                     <Text style={styles.result_description}>We see a lot of</Text>
                     <Text style={styles.result_description_name}>{mood}!</Text>
-                    <TouchableOpacity onPress={recommendation_page}>
-                        <Text style={styles.button}>View</Text>
+                    <TouchableOpacity onPress={() => favoritePage()}>
+                        <Text style={styles.button}>Favorite Page</Text>
                     </TouchableOpacity>
+                </View>
+                <View>
+                    
                 </View>
             </View>
             <View style={styles.bottom_result}>
-                {/* <Text style={styles.recommendation_heading}>
-                    Foods We Recommend
-                </Text> */}
                 <View style={styles.scroll_container}>
                     <FlatList
                         data={recommendation}

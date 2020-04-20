@@ -17,7 +17,8 @@ export default function CameraScreen(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
+    
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
 
   useEffect(() => {
     (async () => {
@@ -61,9 +62,9 @@ export default function CameraScreen(props) {
                 {"mood": "sadness", "value": emotionValue.sadness },
                 {"mood": "surprise", "value": emotionValue.surprise}
             ]
-            console.log('-----------------------------------');
-            console.log(emotions);
-            console.log('-----------------------------------');
+            // console.log('-----------------------------------');
+            // console.log(emotions);
+            // console.log('-----------------------------------');
             
         return emotions.find(emotion => emotion.value === max)
     }
@@ -72,7 +73,7 @@ export default function CameraScreen(props) {
     let base64Img = `data:image/jpg;base64,${photo.base64}`;
     let data = {
             "file": base64Img,
-            "upload_preset": "zzfte1lg",
+            "upload_preset": "sn1chgl3",
           }
       fetch(CLOUDINARY_URL,{
         body: JSON.stringify(data),

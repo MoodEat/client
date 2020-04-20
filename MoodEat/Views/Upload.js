@@ -10,7 +10,9 @@ export default function Home(props) {
     const dispatch = useDispatch();
     const [photo, setPhoto] = useState(null);
     const [visible, setVisible] = useState(false);
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
+  
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
+  
     function goCameraScreen() {
         props.navigation.navigate('Camera');
     }
@@ -50,9 +52,9 @@ export default function Home(props) {
                 {"mood": "sadness", "value": emotionValue.sadness },
                 {"mood": "surprise", "value": emotionValue.surprise}
             ]
-            console.log('-----------------------------------');
-            console.log(emotions);
-            console.log('-----------------------------------');
+            // console.log('-----------------------------------');
+            // console.log(emotions);
+            // console.log('-----------------------------------');
             
         return emotions.find(emotion => emotion.value === max)
     }
@@ -61,8 +63,9 @@ export default function Home(props) {
         let base64Img = `data:image/jpg;base64,${photo.base64}`;
         let data = {
                 "file": base64Img,
-                "upload_preset": "zzfte1lg",
+                "upload_preset": "sn1chgl3",
             }
+        
         fetch(CLOUDINARY_URL,{
             body: JSON.stringify(data),
             headers: {
@@ -71,11 +74,11 @@ export default function Home(props) {
             method: 'POST'
         }).then(async r => {
             let result = await r.json()
-            console.log('--------------');
+            // console.log('--------------');
             
-            console.log(result);
+            // console.log(result);
 
-            console.log('--------------');
+            // console.log('--------------');
 
             
             if (result.error) {

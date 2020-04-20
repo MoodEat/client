@@ -4,16 +4,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { Provider } from 'react-redux';
 import HomeScreen from './Views/Home';
 import UploadScreen from './Views/Upload';
 import CameraScreen from './Views/Camera';
 import ResultScreen from './Views/Result';
 import RecommendationScreen from './Views/Recommendation';
-import { Provider } from 'react-redux';
+import Detail from './Views/Detail';
+import FavoriteScreen from './Views/Favorite' ;
+import TesResultScreen from './Views/TesResult';
 import store from './stores/store';
-import WebViewTest from './Views/WebViewTest';
-
-import TesResultScreen from './Views/TesResult'
 
 const Stack = createStackNavigator();
 
@@ -31,8 +31,9 @@ export default function App() {
               <Stack.Screen name="Camera" component={CameraScreen} />
               <Stack.Screen name="Result" component={ResultScreen} options={{ headerShown: false }} />
               <Stack.Screen name="Recommendation" component={RecommendationScreen} />
-              <Stack.Screen name="WebViewTest" component={WebViewTest} />
+              <Stack.Screen name="Detail" component={Detail} />
               <Stack.Screen name="TesResult" component={TesResultScreen} />
+              <Stack.Screen name="Favorite" component={FavoriteScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
