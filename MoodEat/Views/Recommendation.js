@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
-import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
+import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
+import allAction from '../stores/actions';
 
 export default function Recommendation(props) {
-
+    const dispatch = useDispatch()
     const restaurant = useSelector((state) => state.restaurant.restaurants);
     const loading = useSelector((state) => state.restaurant.loading);
 
@@ -17,6 +18,10 @@ export default function Recommendation(props) {
             'WebViewTest',
             { 'url': url }
         );
+    }
+
+    function handleAddFavorite(id) {
+        dispatch(allAction.addFavorite(id));
     }
 
     if (loading) {
@@ -32,7 +37,8 @@ export default function Recommendation(props) {
     function Card({ card }) {
         const image = card.photo_url;
         const name = card.name;
-        const url = card.url
+        const url = card.url;
+        const id = card.idRestaurant;
 
         console.log('=================');
         console.log('url:', url);
@@ -47,6 +53,9 @@ export default function Recommendation(props) {
                     </Text>
                     <TouchableOpacity onPress={() => handleClick(url)}>
                         <Text style={styles.button}>Details</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleAddFavorite(id)}>
+                        <Text style={styles.button}>Add To Favorite</Text>
                     </TouchableOpacity>
                 </View>
             </View>
