@@ -51,6 +51,18 @@ export default function Recommendation(props) {
         if (image == '') {
             image = 'https://i.imgur.com/0jEmiwl.jpg'
         }
+        let userToken
+        const checkToken = async () => {
+            try {
+                userToken = await AsyncStorage.getItem('userToken');
+            } catch (e) {
+                // Restoring token failed
+            }
+            if (userToken) {
+                // dispatch(allActions.SET_ISLOGIN(true));
+                console.log(userToken, 'masuuuuk');
+            }
+        }
 
         return (
             <View style={styles.card_container}>

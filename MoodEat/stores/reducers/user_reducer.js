@@ -4,7 +4,9 @@ const initialState = {
     age: '',
     gender: '',
     latitude: '',
-    longitude: ''
+    longitude: '',
+    isLogin: false,
+    token: ''
 }
 
 export default function userReducer(state = initialState, action) {
@@ -37,6 +39,16 @@ export default function userReducer(state = initialState, action) {
         return {
             ...state,
             longitude: action.payload
+        }
+    } else if (action.type === 'SET_ISLOGIN') {
+        return {
+            ...state,
+            isLogin: action.payload
+        }
+    } else if (action.type === 'SET_TOKEN') {
+        return {
+            ...state,
+            token: action.payload
         }
     }
     return state
