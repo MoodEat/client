@@ -62,9 +62,9 @@ export default function CameraScreen(props) {
                 {"mood": "sadness", "value": emotionValue.sadness },
                 {"mood": "surprise", "value": emotionValue.surprise}
             ]
-            console.log('-----------------------------------');
-            console.log(emotions);
-            console.log('-----------------------------------');
+            // console.log('-----------------------------------');
+            // console.log(emotions);
+            // console.log('-----------------------------------');
             
         return emotions.find(emotion => emotion.value === max)
     }
