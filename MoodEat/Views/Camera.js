@@ -17,7 +17,7 @@ export default function CameraScreen(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
 
   useEffect(() => {
     (async () => {
@@ -72,7 +72,7 @@ export default function CameraScreen(props) {
     let base64Img = `data:image/jpg;base64,${photo.base64}`;
     let data = {
             "file": base64Img,
-            "upload_preset": "ollit1cy",
+            "upload_preset": "zzfte1lg",
           }
       fetch(CLOUDINARY_URL,{
         body: JSON.stringify(data),
@@ -82,7 +82,7 @@ export default function CameraScreen(props) {
         method: 'POST'
       }).then(async r => {
           let result = await r.json()
-          if (result.info.detection.adv_face.data === undefined) {
+          if (result.error) {
                 console.log('masuuuk');
                 Alert.alert(
                             'Face is not detected',

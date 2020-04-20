@@ -1,33 +1,78 @@
 import React from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
 export default function Recommendation(props) {
-    function handleClick() {
-        console.log(`masuk handle click webview`);
-        
-        props.navigation.navigate('WebViewTest');
+
+    const restaurant = useSelector((state) => state.restaurant.restaurants);
+    const loading = useSelector((state) => state.restaurant.loading);
+
+    console.log('===================');
+    console.log('restaurant:', restaurant);
+    console.log('===================');
+
+    function handleClick(url) {
+        props.navigation.navigate(
+            'WebViewTest',
+            { 'url': url }
+        );
     }
 
-    return (
-        <Layout style={styles.container}>
-            <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+    if (loading) {
+        console.log('===================');
+        console.log('masuk loading');
+        console.log('===================');
+
+        return (
+            <Text style={styles.card_description}>Loading...</Text>
+        )
+    }
+
+    function Card({ card }) {
+        const image = card.photo_url;
+        const name = card.name;
+        const url = card.url
+
+        console.log('=================');
+        console.log('url:', url);
+        console.log('=================');
+
+        return (
             <View style={styles.card_container}>
-                <Image source={require('../assets/chocolate.jpeg')} style={styles.card_image} />
+                <Image source={{ uri: image }} style={styles.card_image} />
                 <View style={styles.card_description_container}>
                     <Text style={styles.card_description}>
-                        Haji Mamat
+                        {name}
                     </Text>
-                    <Text style={styles.card_description_address}>
-                    Jl. Pesanggrahan No. 168L, Puri Indah, Jakarta
-                    </Text>
-                    <TouchableOpacity onPress={handleClick}>
-                        <Text style={styles.button}>View</Text>
+                    <TouchableOpacity onPress={() => handleClick(url)}>
+                        <Text style={styles.button}>Details</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </Layout>
-    )
+        )
+    }
+
+    if (restaurant.length == 0) {
+        return (
+            <Text style={styles.card_description}>
+                There is no restaurant on your nearby location
+            </Text>
+        )
+    } else {
+        return (
+            <Layout style={styles.container}>
+                <View style={styles.bottom_result}>
+                    <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+                    <FlatList
+                        data={restaurant}
+                        renderItem={({ item, index }) => <Card card={item} />}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+            </Layout>
+        )
+    }
 }
 
 const primaryColor = '#f0c869';

@@ -1,19 +1,19 @@
 const initialState = {
     loading: false,
-    recommendation: [],
-    mood: ''
+    error: null,
+    restaurants: []
 }
 
 export default function categoryReducer(state = initialState, action) {
-    if (action.type === 'SET_PHOTO') {
+    if (action.type === 'SET_RESTAURANT') {
         return {
             ...state,
-            photo: action.payload
+            restaurants: action.payload
         }
-    } else if (action.type === 'SET_RECOMMENDATION') {
+    } else if (action.type === 'SET_LOADING') {
         return {
             ...state,
-            recommendation: action.payload
+            loading: action.payload
         }
     }
     return state

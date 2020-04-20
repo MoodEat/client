@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Button, BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
+import { useNavigation } from '@react-navigation/native';
 import allActions from '../stores/actions';
 
 export default function Result(props) {
     const dispatch = useDispatch();
-
+    const navigation = useNavigation();
+    
     const user = useSelector((state) => state.user);
     const mood = user.mood;
     const photo = user.photoUrl;
+    const latitude = user.latitude;
+    const longitude = user.longitude;
 
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
@@ -24,6 +28,21 @@ export default function Result(props) {
         dispatch(allActions.fetchRecommendation(mood));
     }, [dispatch])
 
+    function handleClick(food) {
+        
+        let payload = {
+            food,
+            latitude,
+            longitude
+        }
+
+        dispatch(allActions.fetchRestaurant(payload))
+        console.log(`masuk handle click webview`);
+        props.navigation.navigate(
+            'Recommendation',
+        );
+    }
+
     function Card({ card }) {
         const image = card.image;
         const food = card.food;
@@ -35,7 +54,7 @@ export default function Result(props) {
                     <Text style={styles.card_description}>
                         {food}
                     </Text>
-                    <TouchableOpacity onPress={handleClick}>
+                    <TouchableOpacity onPress={() => handleClick(food)}>
                         <Text style={styles.button}>View</Text>
                     </TouchableOpacity>
                 </View>
@@ -43,7 +62,7 @@ export default function Result(props) {
         )
     }
 
-    function handleClick() {
+    function recommendation_page() {
         props.navigation.navigate('Recommendation');
     }
 
@@ -58,6 +77,9 @@ export default function Result(props) {
                     <Text style={styles.result_description}>Based on your photo</Text>
                     <Text style={styles.result_description}>We see a lot of</Text>
                     <Text style={styles.result_description_name}>{mood}!</Text>
+                    <TouchableOpacity onPress={recommendation_page}>
+                        <Text style={styles.button}>View</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.bottom_result}>

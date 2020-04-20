@@ -7,10 +7,10 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 export default function Home(props) {
-    const dispatch = useDispatch()
-    const [photo, setPhoto] = useState(null)
+    const dispatch = useDispatch();
+    const [photo, setPhoto] = useState(null);
     const [visible, setVisible] = useState(false);
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
     function goCameraScreen() {
         props.navigation.navigate('Camera');
     }
@@ -61,7 +61,7 @@ export default function Home(props) {
         let base64Img = `data:image/jpg;base64,${photo.base64}`;
         let data = {
                 "file": base64Img,
-                "upload_preset": "ollit1cy",
+                "upload_preset": "zzfte1lg",
             }
         fetch(CLOUDINARY_URL,{
             body: JSON.stringify(data),
@@ -71,7 +71,14 @@ export default function Home(props) {
             method: 'POST'
         }).then(async r => {
             let result = await r.json()
-            if (result.info.detection.adv_face.data === undefined) {
+            console.log('--------------');
+            
+            console.log(result);
+
+            console.log('--------------');
+
+            
+            if (result.error) {
                 console.log('masuuuk');
                 Alert.alert(
                             'Face is not detected',
