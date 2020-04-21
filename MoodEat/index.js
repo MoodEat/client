@@ -13,6 +13,7 @@ import Detail from './Views/Detail';
 import FavoriteScreen from './Views/Favorite' ;
 import TesResultScreen from './Views/TesResult';
 import LoginScreen from './Views/Login'
+import RegisterScreen from './Views/Register'
 
 const Stack = createStackNavigator();
 
@@ -47,7 +48,10 @@ export default function Index() {
             <Stack.Navigator>
                 {
                 isLogin === false ? (
+                    <>
                     <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name='Register' component={RegisterScreen}/>
+                    </>
                 ) : (
                     <>
                     <Stack.Screen name="Home" component={HomeScreen} />

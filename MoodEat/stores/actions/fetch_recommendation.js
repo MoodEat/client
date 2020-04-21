@@ -16,7 +16,7 @@ export const fetchRecommendation = (mood) => {
     console.log(`===========================`);
     
     return (dispatch) => {
-        axios.get(`http://localhost:3000/${mood}`)
+        axios.get(`http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/${mood}`)
             .then(({ data }) => {
                 // console.log(data);
                 dispatch(setRecommendation(data))

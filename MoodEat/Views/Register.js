@@ -8,8 +8,13 @@ const EmailIcon = (props) => (
 <Icon {...props} name='email-outline'/>
 );
 
-export default function Login(props) {
+const UserIcon = (props) => (
+<Icon {...props} name='person-outline'/>
+);
+
+export default function Register(props) {
     const dispatch = useDispatch()
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -24,18 +29,19 @@ export default function Login(props) {
         </TouchableWithoutFeedback>
     );
 
-    function loginForm() {
+    function registerForm() {
         let data = {
-            email, password
+            name,email, password
         }
         console.log(data,'--=-=-=');
-        dispatch(allActions.POST_LOGIN(data))
+        dispatch(allActions.POST_REGISTER(data))
+        setName('')
         setEmail('')
         setPassword('')
     }
 
-    function goRegisterScreen() {
-        props.navigation.navigate('Register');
+    function goLoginScreen() {
+        props.navigation.navigate('Login');
     }
 
 
@@ -44,12 +50,18 @@ export default function Login(props) {
             <Layout style={styles.layoutPage}>
                 <View style={styles.top}>
                     <Text category='h3' style={styles.text} >
-                        Welcome Back To
-                    </Text>
-                    <Text category='h3' style={styles.text} >
-                        MoodEat
+                        Welcome to MoodEat.
                     </Text>
                     <View style={styles.inputLayout}>
+                        <Input
+                            style={styles.inputForm}
+                            value={name}
+                            // label='Email'
+                            status='basic'
+                            placeholder='Name'
+                            accessoryLeft={UserIcon}
+                            onChangeText={name => setName(name)}
+                        />
                         <Input
                             style={styles.inputForm}
                             value={email}
@@ -72,11 +84,14 @@ export default function Login(props) {
                     </View>
                 </View>
                 <View style={styles.center}>
-                    <Button title="Sign in" style={styles.buttonLog} status = 'primary' onPress={() => loginForm()} >Login</Button>
+                    <Button title="Sign in" style={styles.buttonReg} status = 'primary' onPress={() => registerForm()} >
+                        <Text style={styles.text}>Register</Text>
+                        </Button>
                 </View>
                 <View style={styles.bottom}>
-                    <Button style={styles.buttonReg} onPress={goRegisterScreen}>
-                        <Text style={styles.text}>Don't You have an account? Register Here!</Text>
+                    <Button style={styles.buttonLog} onPress={goLoginScreen}>
+                        <Text style={styles.text}>Do You have an account?</Text>
+                        <Text style={styles.text}>Login Here</Text>
                     </Button>
                 </View>
             </Layout>
@@ -88,7 +103,7 @@ export default function Login(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0c869',
+        backgroundColor: '#fff',
         alignItems: 'flex-start',
         justifyContent: 'center',
         width: '100%',
@@ -103,8 +118,8 @@ const styles = StyleSheet.create({
     },
     top: {
         flex: 2,
-        textDecorationColor: '#000',
-        backgroundColor: '#fff',
+        textDecorationColor: '#f0c869',
+        backgroundColor: '#f0c869',
         alignItems: 'center',
         justifyContent: 'flex-end',
         width: '100%',
@@ -112,7 +127,7 @@ const styles = StyleSheet.create({
     },
     center: {
         width: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: '#f0c869',
         alignItems: 'flex-end',
         paddingTop: 0,
         borderTopRightRadius: 50,
@@ -122,7 +137,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#f0c869',
         borderTopRightRadius: 15
     },
     inputLayout: {
@@ -134,21 +149,23 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderRadius: 10,
     },
-    buttonLog: {
+    buttonReg: {
         height: 50,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
+        backgroundColor: '#fff',
+        borderColor: '#fff',
         width: '90%'
     },
-    buttonReg: {
+    buttonLog: {
         height: 50,
-        marginTop: 20,
         paddingTop: 0,
         paddingLeft: 50,
         borderTopRightRadius: 10,
-        width: '80%',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
+        marginTop: 20,
+        width: '70%',
+        borderColor: '#f0c869',
+        backgroundColor: '#f0c869',
         textDecorationColor: '#000'
     },
     text: {
