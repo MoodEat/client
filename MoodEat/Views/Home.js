@@ -50,13 +50,13 @@ export default function Home(props) {
                 <View style={styles.redirect_container}>
                     <TouchableOpacity onPress={goUploadScreen}>
                         <View style={styles.redirect_favorite}>
-                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/material-rounded/96/000000/star.png" }} />
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: 'https://img.icons8.com/metro/52/000000/camera.png' }} />
                             <Text style={styles.result_description}>Take Mood</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => favoritePage()} >
                         <View style={styles.redirect_favorite}>
-                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: 'https://img.icons8.com/metro/52/000000/camera.png' }} />
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/material-rounded/96/000000/star.png" }} />
                             <Text style={styles.result_description}>Favorite</Text>
                         </View>
                     </TouchableOpacity>
