@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
-import { Layout, Text, Button, } from '@ui-kitten/components';
-import Constants from 'expo-constants';
+import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { Layout, Button, } from '@ui-kitten/components';
 import * as Location from 'expo-location';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_LATITUDE, SET_LONGITUDE } from '../stores/actions/userAction';
@@ -48,12 +47,28 @@ export default function Home(props) {
                 <Image source={require('../assets/home.png')} style={{ width: "100%", height: "100%" }} />
             </View>
             <View style={styles.bottom}>
-                <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
-                <Button style={styles.button} status='basic' onPress={() => favoritePage()} >Favorite Page</Button>
+                <View style={styles.redirect_container}>
+                    <TouchableOpacity onPress={goUploadScreen}>
+                        <View style={styles.redirect_favorite}>
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/material-rounded/96/000000/star.png" }} />
+                            <Text style={styles.result_description}>Take Mood</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => favoritePage()} >
+                        <View style={styles.redirect_favorite}>
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: 'https://img.icons8.com/metro/52/000000/camera.png' }} />
+                            <Text style={styles.result_description}>Favorite</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         </Layout>
     )
 }
+
+const primaryColor = '#f0c869';
+const darkColor = '#333';
+const cardRadius = 20;
 
 
 const styles = StyleSheet.create({
@@ -85,5 +100,35 @@ const styles = StyleSheet.create({
         borderRadius: 90,
         height: 100,
         width: 150
-    }
+    },
+    redirect_container: {
+        // backgroundColor: 'red',
+        justifyContent: 'center'
+    },
+    redirect_favorite: {
+        flexDirection: 'row',
+        borderRadius: 100,
+        backgroundColor: 'white',
+        width: '85%',
+        marginBottom: 10,
+        paddingHorizontal: 5,
+        width: 250,
+        height: 50,
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    image_button: {
+        height: 25,
+        width: 25,
+        tintColor: primaryColor,
+        marginRight: 10
+    },
+    result_description: {
+        color: darkColor,
+        fontSize: 17,
+        fontWeight: 'bold',
+        paddingRight: 10,
+        textAlign: 'center',
+    },
 });

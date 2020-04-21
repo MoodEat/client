@@ -12,8 +12,9 @@ import RecommendationScreen from './Views/Recommendation';
 import Detail from './Views/Detail';
 import FavoriteScreen from './Views/Favorite' ;
 import TesResultScreen from './Views/TesResult';
-import LoginScreen from './Views/Login'
-import RegisterScreen from './Views/Register'
+import LoginScreen from './Views/Login';
+import RegisterScreen from './Views/Register';
+import DetectionPage from './Views/Detection';
 
 const Stack = createStackNavigator();
 
@@ -62,6 +63,7 @@ export default function Index() {
                     <Stack.Screen name="Detail" component={Detail} />
                     <Stack.Screen name="TesResult" component={TesResultScreen} />
                     <Stack.Screen name="Favorite" component={FavoriteScreen} />
+                    <Stack.Screen name="Detection" component={DetectionPage} />
                     </>
                 )
                 }
