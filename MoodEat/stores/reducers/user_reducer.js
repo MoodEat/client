@@ -6,7 +6,8 @@ const initialState = {
     latitude: '',
     longitude: '',
     isLogin: false,
-    token: ''
+    token: '',
+    isLoading: false
 }
 
 export default function userReducer(state = initialState, action) {
@@ -49,6 +50,11 @@ export default function userReducer(state = initialState, action) {
         return {
             ...state,
             token: action.payload
+        }
+    } else if (action.type === 'SET_LOADING') {
+        return {
+            ...state,
+            isLoading: action.payload
         }
     }
     return state

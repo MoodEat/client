@@ -10,6 +10,14 @@ export default function SET_USER(data) {
     }
 }
 
+export function SET_LOADING(data) {
+    return {
+        type: "SET_LOADING",
+        payload: data
+    }
+}
+
+
 
 export function SET_PHOTO(data) {
     return {
@@ -74,6 +82,7 @@ export function POST_LOGIN(data) {
     console.log('masuk------');
     console.log(data);
     return (dispatch) => {
+        dispatch(SET_LOADING(true))
         axios({
             method: 'post',
             url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/login',
@@ -103,8 +112,9 @@ export function POST_LOGIN(data) {
         })
         .catch(err => {
             console.log(err,'errorrrrr');
-
-            
+        })
+        .finally(_ => {
+            dispatch(SET_LOADING(false))
         })
     }
 }

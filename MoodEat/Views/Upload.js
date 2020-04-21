@@ -4,12 +4,14 @@ import allActions from '../stores/actions/index'
 import { StyleSheet, View, Image, Alert } from 'react-native';
 import { Layout, Button, Modal, Card, Text } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
+import Loading from '../components/Loading'
 
 
 export default function Home(props) {
     const dispatch = useDispatch();
     const [photo, setPhoto] = useState(null);
     const [visible, setVisible] = useState(false);
+    const [isLoading, setLoading] = useState(false)
   
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
   
@@ -65,7 +67,7 @@ export default function Home(props) {
                 "file": base64Img,
                 "upload_preset": "zzfte1lg",
             }
-        
+        setLoading(true)
         fetch(CLOUDINARY_URL,{
             body: JSON.stringify(data),
             headers: {
@@ -110,7 +112,20 @@ export default function Home(props) {
                 dispatch(allActions.SET_USER(payload))
                 props.navigation.navigate('Result');
             }
-        }).catch(err => console.log(err))
+        })
+        .catch(err => {
+            console.log(err, 'ini error upload Gallery');
+        })
+        .finally(_=>{
+            setLoading(false)
+        })
+
+    }
+
+    if (isLoading) {
+        return (
+            <Loading />
+        )
     }
 
     if (photo !== null) {

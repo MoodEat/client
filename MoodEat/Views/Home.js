@@ -45,7 +45,7 @@ export default function Home(props) {
             </View>
             <View style={styles.bottom}>
                 <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
-                <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button>
+                {/* <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button> */}
             </View>
         </Layout>
     )
