@@ -42,6 +42,10 @@ export default function DetectionPage(props) {
     const gender = user.gender;
     const photo = user.photoUrl;
 
+    function resultPage() {
+        props.navigation.navigate('Result');
+    }
+
     return (
         <Layout style={styles.container}>
             <View style={styles.detection}>

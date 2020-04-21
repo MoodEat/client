@@ -88,14 +88,14 @@ export default function Result(props) {
                     <View style={styles.redirect_container}>
                         <TouchableOpacity onPress={() => favoritePage()}>
                             <View style={styles.redirect_favorite}>
-                                <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/material-rounded/96/000000/star.png" }} />
-                                <Text style={styles.result_description}>Favorite Page</Text>
+                                <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/ios-filled/90/000000/like.png" }} />
+                                <Text style={styles.result_description}>Favorite</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
                             <View style={styles.redirect_favorite}>
                                 <Image style={styles.image_button} resizeMode="contain" source={{ uri: 'https://img.icons8.com/material-rounded/104/000000/home.png' }} />
-                                <Text style={styles.result_description}>Home Page</Text>
+                                <Text style={styles.result_description}>Home</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -110,6 +110,7 @@ export default function Result(props) {
                         data={recommendation}
                         renderItem={({ item, index }) => <Card card={item} />}
                         keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
             </View>

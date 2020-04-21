@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch } from 'react-redux'
 import allActions from '../stores/actions/index'
-import { StyleSheet, View, Image, Alert } from 'react-native';
-import { Layout, Button, Modal, Card, Text } from '@ui-kitten/components';
+import { StyleSheet, View, Image, Alert, TouchableOpacity, Text } from 'react-native';
+import { Layout, Button } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 import Loading from '../components/Loading'
 
@@ -146,13 +146,26 @@ export default function Home(props) {
     return (
         <Layout style={styles.container}>
             <View style={styles.firstLayout}>
-                <Button style={styles.button} status='basic' onPress={goCameraScreen} > Take Picture</Button>
-                <Button style={styles.button} status='basic' onPress={pickImage} > From Gallery</Button>
+            <TouchableOpacity onPress={goCameraScreen}>
+                        <View style={styles.redirect_favorite}>
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: 'https://img.icons8.com/metro/52/000000/camera.png' }} />
+                            <Text style={styles.result_description}>Take Picture</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={pickImage} >
+                        <View style={styles.redirect_favorite}>
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/ios-filled/96/000000/stack-of-photos.png" }} />
+                            <Text style={styles.result_description}>From Gallery</Text>
+                        </View>
+                    </TouchableOpacity>
             </View>
         </Layout>
     )
 }
 
+const primaryColor = '#f0c869';
+const darkColor = '#333';
+const cardRadius = 20;
 
 const styles = StyleSheet.create({
     container: {
@@ -196,5 +209,31 @@ const styles = StyleSheet.create({
     },
     backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    }
+    },
+    redirect_favorite: {
+        flexDirection: 'row',
+        borderRadius: 100,
+        backgroundColor: 'white',
+        width: '85%',
+        marginBottom: 10,
+        paddingHorizontal: 5,
+        width: 250,
+        height: 50,
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    image_button: {
+        height: 25,
+        width: 25,
+        tintColor: primaryColor,
+        marginRight: 10
+    },
+    result_description: {
+        color: darkColor,
+        fontSize: 17,
+        fontWeight: 'bold',
+        paddingRight: 10,
+        textAlign: 'center',
+    },
 });
