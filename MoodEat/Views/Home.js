@@ -1,41 +1,49 @@
-import React,{useState, useEffect} from 'react';
-import { StyleSheet, View, Image, ImageBackground } from 'react-native';
-import { Layout, Text, Button,  } from '@ui-kitten/components';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { Layout, Text, Button, } from '@ui-kitten/components';
 import Constants from 'expo-constants';
-import * as Location from 'expo-location'
-import {useDispatch, useSelector} from 'react-redux'
-import {SET_LATITUDE, SET_LONGITUDE} from '../stores/actions/userAction'
+import * as Location from 'expo-location';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_LATITUDE, SET_LONGITUDE } from '../stores/actions/userAction';
+import allActions from '../stores/actions';
 
 export default function Home(props) {
     const dispatch = useDispatch()
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-
+    const token = useSelector((state) => state.user.token);
 
     useEffect(() => {
         (async () => {
-        let { status } = await Location.requestPermissionsAsync();
-        if (status !== 'granted') {
-            setErrorMsg('Permission to access location was denied');
-        }
+            let { status } = await Location.requestPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+            }
 
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
         })();
-    },[]);
+    }, []);
 
     if (location) {
         dispatch(SET_LATITUDE(location.coords.latitude))
         dispatch(SET_LONGITUDE(location.coords.longitude))
     }
 
-    function goUploadScreen(){
+    function goUploadScreen() {
         props.navigation.navigate('Upload');
     }
 
     function goResultScreen() {
         console.log('masuk button result screen');
         props.navigation.navigate('WebViewTest');
+    }
+
+    function favoritePage() {
+        props.navigation.navigate(
+            'Favorite',
+            { 'token': token }
+        );
     }
 
     return (
@@ -46,6 +54,7 @@ export default function Home(props) {
             <View style={styles.bottom}>
                 <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
                 <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button>
+                <Button style={styles.button} status='basic' onPress={() => favoritePage()} >Favorite Page</Button>
             </View>
         </Layout>
     )
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        
+
     },
     top: {
         flex: 4,
@@ -73,7 +82,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         borderTopRightRadius: 70,
-        borderTopLeftRadius: 70
+        borderTopLeftRadius: 70,
+        flexDirection: 'row'
     },
     button: {
         margin: 2,

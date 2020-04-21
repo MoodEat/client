@@ -12,7 +12,7 @@ const getFavorite = (data) => {
     return { type: 'GET_FAVORITE', payload: data }
 }
 
-export const addFavorite = (id) => {
+export const addFavorite = (id, token) => {
     setLoading(true);
 
     return (dispatch) => {
@@ -20,7 +20,7 @@ export const addFavorite = (id) => {
             method: 'post',
             url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                token
             },
             data: {
                 restaurantId: id
@@ -41,7 +41,7 @@ export const addFavorite = (id) => {
     }
 }
 
-export const fetchFavorite = () => {
+export const fetchFavorite = (token) => {
     setLoading(true);
 
     return (dispatch) => {
@@ -49,7 +49,7 @@ export const fetchFavorite = () => {
             method: 'get',
             url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                token
             }
         })
             .then(({ data }) => {
@@ -68,7 +68,7 @@ export const fetchFavorite = () => {
     }
 }
 
-export const deleteFavorite = (id) => {
+export const deleteFavorite = (id, token) => {
     setLoading(true);
 
     return (dispatch) => {
@@ -76,7 +76,7 @@ export const deleteFavorite = (id) => {
             method: 'delete',
             url: `http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites/${id}`,
             headers: {
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                token
             }
         })
             .then(({ data }) => {
@@ -85,16 +85,16 @@ export const deleteFavorite = (id) => {
                     method: 'get',
                     url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
                     headers: {
-                        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
+                        token
                     }
                 })
             })
             .then(({ data }) => {
                 dispatch(getFavorite(data));
-                // dispatch(setFavorite(data));
             })
             .catch(error => {
-                console.log(error);
+                console.log('===========');
+                console.log('masuk fetch data habis delete error', error);
             })
             .finally(_ => {
                 setLoading(false);
