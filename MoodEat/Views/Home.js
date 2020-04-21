@@ -56,7 +56,7 @@ export default function Home(props) {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => favoritePage()} >
                         <View style={styles.redirect_favorite}>
-                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/material-rounded/96/000000/star.png" }} />
+                            <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/ios-filled/90/000000/like.png" }} />
                             <Text style={styles.result_description}>Favorite</Text>
                         </View>
                     </TouchableOpacity>

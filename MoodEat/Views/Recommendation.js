@@ -8,7 +8,7 @@ import Loading from '../components/Loading'
 
 
 const FavIcon = (props) => (
-  <Icon {...props} name='heart'/>
+    <Icon {...props} name='heart' />
 );
 
 
@@ -18,7 +18,7 @@ export default function Recommendation(props) {
 
     const loading = useSelector((state) => state.restaurant.loadingRest);
     const token = useSelector((state) => state.user.token);
-    
+
     function handleClick(url) {
         props.navigation.navigate(
             'Detail',
@@ -42,7 +42,7 @@ export default function Recommendation(props) {
     console.log('state favorite:', useSelector((state) => state.restaurant))
     console.log('=================================')
 
-    
+
 
     function Card({ card }) {
         let image = card.photo_url;
@@ -69,53 +69,55 @@ export default function Recommendation(props) {
 
         return (
             <View style={styles.card_container}>
-                    <TouchableOpacity onPress={() => handleClick(url)}>
-                        <Image source={{ uri: image }} style={styles.card_image} />
-                    </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleClick(url)}>
+                    <Image source={{ uri: image }} style={styles.card_image} />
+                </TouchableOpacity>
                 <View style={styles.card_description_container}>
-                    <Button 
-                    appearance='ghost'
-                    status = 'primary'
-                    accessoryLeft={FavIcon}
-                    onPress={() => handleAddFavorite(id)}
-                    />
-                    <Text style={styles.card_description}>
+                    <Text style={styles.card_description_heading}>
                         {name}
                     </Text>
                     <Text style={styles.card_description}>
                         {location}
                     </Text>
+                    <TouchableOpacity onPress={() => handleAddFavorite(id)} style={styles.image_button_container}>
+                    <Image source={{ uri: 'https://img.icons8.com/ios-filled/90/000000/like.png' }}  style={styles.image_button}/>
+                </TouchableOpacity>
                 </View>
+                
             </View>
         )
     }
 
     if (loading) {
         return (
-           <Loading />
+            <Loading />
         )
-    } 
-    
+    }
+
     if (restaurant.length == 0) {
         return (
-            <Text style={styles.card_description}>
-                There is no restaurant on your nearby location
-            </Text>
+            <View style={styles.empty_container}>
+                <Text style={styles.empty_description}>
+                    Woops! There is no restaurant on your nearby location
+                </Text>
+                <Image style={styles.empty_image} source={{ uri: "https://img.icons8.com/ios/96/000000/sad-cloud.png" }} />
+            </View >
         )
-    } 
-        return (
-            <Layout style={styles.container}>
-                <View style={styles.bottom_result}>
-                    <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
-                    <FlatList
-                        data={restaurant}
-                        renderItem={({ item, index }) => <Card card={item} />}
-                        keyExtractor={item => item.idRestaurant}
-                    />
-                </View>
-            </Layout>
-        )
-    
+    }
+    return (
+        <Layout style={styles.container}>
+            <View style={styles.bottom_result}>
+                <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+                <FlatList
+                    data={restaurant}
+                    renderItem={({ item, index }) => <Card card={item} />}
+                    keyExtractor={item => item.idRestaurant}
+                    showsVerticalScrollIndicator={false}
+                />
+            </View>
+        </Layout>
+    )
+
 }
 
 const primaryColor = '#f0c869';
@@ -124,9 +126,28 @@ const darkColor = '#333';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: primaryColor,
         width: '100%',
+        padding: 20,
+        paddingBottom: 70,
+    },
+    empty_container: {
+        flex: 1,
+        backgroundColor: primaryColor,
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 20
+    },
+    empty_description: {
+        color: darkColor,
+        fontWeight: 'bold',
+        fontSize: 30,
+        textAlign: 'center'
+    },
+    empty_image: {
+        tintColor: 'white',
+        width: 100,
+        height: 100
     },
     recommendation_heading: {
         borderRadius: 100,
@@ -142,17 +163,17 @@ const styles = StyleSheet.create({
         height: 200,
         backgroundColor: 'white',
         marginTop: '5%',
-        width: 300,
+        width: '100%',
         borderRadius: 10,
     },
     card_image: {
-        width: 300,
+        width: '100%',
         height: 200,
         borderRadius: 10,
     },
     card_description_container: {
         height: '70%',
-        width: '50%',
+        width: '60%',
         paddingHorizontal: 20,
         backgroundColor: 'white',
         position: 'absolute',
@@ -163,9 +184,18 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10
 
     },
-    card_description: {
+    card_description_heading: {
         color: darkColor,
         fontWeight: 'bold',
+        backgroundColor: primaryColor,
+        borderRadius: 100,
+        // borderWidth: 
+        paddingHorizontal: 10
+    },
+    card_description: {
+        color: darkColor,
+        paddingHorizontal: 10
+        // fontWeight: 'bold',
     },
     card_description_address: {
         color: darkColor,
@@ -184,5 +214,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingVertical: 5,
         paddingHorizontal: 15
+    },
+    image_button: {
+        height: 30,
+        width: 30,
+        tintColor: primaryColor,
+        zIndex: 5,
+    },
+    image_button_container: {
+        width: '100%',
+        alignItems: 'flex-end'
     }
 });

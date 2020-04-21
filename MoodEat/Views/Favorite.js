@@ -5,10 +5,10 @@ import { Layout, Text, Icon, Button } from '@ui-kitten/components';
 import allActions from '../stores/actions';
 
 const TrashIcon = (props) => (
-  <Icon {...props} name='trash'/>
+    <Icon {...props} name='trash' />
 );
 
-export default function FavoriteScreen (props) {
+export default function FavoriteScreen(props) {
     const dispatch = useDispatch();
     let favorite = useSelector((state) => state.favorite.favorite);
     let token = props.route.params.token
@@ -23,7 +23,7 @@ export default function FavoriteScreen (props) {
         const url = card.url;
         const id = card._id;
 
-        if(image == '') {
+        if (image == '') {
             image = 'https://i.imgur.com/h6TdPga.jpg'
         }
 
@@ -33,25 +33,25 @@ export default function FavoriteScreen (props) {
                 { 'url': url }
             );
         }
-        
+
         function handleDelete() {
             dispatch(allActions.deleteFavorite(id, token));
         }
 
         return (
             <View style={styles.card_container}>
-                    <TouchableOpacity onPress={() => handleClick(url)}>
-                        <Image source={{ uri: image }} style={styles.card_image} />
-                    </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleClick(url)}>
+                    <Image source={{ uri: image }} style={styles.card_image} />
+                </TouchableOpacity>
                 <View style={styles.card_description_container}>
                     <Text style={styles.card_description}>
                         {name}
                     </Text>
-                    <Button 
-                    appearance='ghost'
-                    status = 'danger'
-                    accessoryLeft={TrashIcon}
-                    onPress={() => handleDelete()}
+                    <Button
+                        appearance='ghost'
+                        status='danger'
+                        accessoryLeft={TrashIcon}
+                        onPress={() => handleDelete()}
                     />
                 </View>
             </View>
@@ -60,9 +60,13 @@ export default function FavoriteScreen (props) {
 
     if (favorite.length == 0) {
         return (
-            <Text style={styles.card_description}>
-                There is no restaurant on your favorite list
-            </Text>
+            <View style={styles.empty_container}>
+                <Text style={styles.empty_description}>
+                    Woops!
+                    There is no restaurant on your favorite list
+                </Text>
+                <Image style={styles.empty_image} source={{ uri: "https://img.icons8.com/ios/96/000000/sad-cloud.png" }}/>
+            </View>
         )
     } else {
         return (
@@ -72,7 +76,8 @@ export default function FavoriteScreen (props) {
                     <FlatList
                         data={favorite}
                         renderItem={({ item, index }) => <Card card={item} />}
-                        keyExtractor={(item, index) => index.toString()} 
+                        keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
             </Layout>
@@ -89,6 +94,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         width: '100%',
         padding: 20
+    },
+    empty_container: {
+        flex: 1,
+        backgroundColor: primaryColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20
+    },
+    empty_description: {
+        color: darkColor,
+        fontWeight: 'bold',
+        fontSize: 30,
+        textAlign: 'center'
+    },
+    empty_image: {
+        tintColor: 'white',
+        width: 100,
+        height: 100
     },
     recommendation_heading: {
         borderRadius: 100,
