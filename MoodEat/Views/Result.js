@@ -18,13 +18,6 @@ export default function Result(props) {
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
 
-<<<<<<< HEAD
-    const favorite = useSelector((state) => state.favorite.favorite);
-
-||||||| merged common ancestors
-=======
-
->>>>>>> delete_favorite
     console.log('=================================');
     console.log('mood:', mood);
     console.log('user:',user);
@@ -70,24 +63,7 @@ export default function Result(props) {
                 </View>
             </View>
         )
-<<<<<<< HEAD
-    }
-
-    function favoritePage() {
-        props.navigation.navigate(
-            'Favorite',
-            { 'favorite': favorite }
-        );
-    }
-||||||| merged common ancestors
-    }
-
-    function recommendation_page() {
-        props.navigation.navigate('Recommendation');
-    }
-=======
     }    
->>>>>>> delete_favorite
 
     return (
         <Layout style={styles.container}>
@@ -100,20 +76,10 @@ export default function Result(props) {
                     <Text style={styles.result_description}>Based on your photo</Text>
                     <Text style={styles.result_description}>We see a lot of</Text>
                     <Text style={styles.result_description_name}>{mood}!</Text>
-<<<<<<< HEAD
-                    <TouchableOpacity onPress={() => favoritePage()}>
-                        <Text style={styles.button}>Favorite Page</Text>
-                    </TouchableOpacity>
-||||||| merged common ancestors
-                    <TouchableOpacity onPress={recommendation_page}>
-                        <Text style={styles.button}>View</Text>
-                    </TouchableOpacity>
-=======
                     
                 </View>
                 <View>
                     
->>>>>>> delete_favorite
                 </View>
                 <View>
                     

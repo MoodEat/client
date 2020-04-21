@@ -11,6 +11,7 @@ export default function Home(props) {
     const dispatch = useDispatch()
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const token = useSelector((state) => state.user.token);
 
     useEffect(() => {
         (async () => {
@@ -41,6 +42,7 @@ export default function Home(props) {
     function favoritePage() {
         props.navigation.navigate(
             'Favorite',
+            { 'token': token }
         );
     }
 

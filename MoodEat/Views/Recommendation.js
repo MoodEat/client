@@ -8,6 +8,7 @@ export default function Recommendation(props) {
     const dispatch = useDispatch()
     const restaurant = useSelector((state) => state.restaurant.restaurants);
     const loading = useSelector((state) => state.restaurant.loading);
+    const token = useSelector((state) => state.user.token);
     
     // console.log('===================');
     // console.log('restaurant:', restaurant);
@@ -21,11 +22,13 @@ export default function Recommendation(props) {
     }
 
     function handleAddFavorite(id) {
-        console.log('=================================')
-        console.log('restaurant id di recommendation:', id)
-        console.log('=================================')
+        console.log('=================================');
+        console.log('restaurant id di recommendation:', id);
+        console.log('=================================');
+        console.log('user token:', token);
+        console.log('=================================');
 
-        dispatch(allActions.addFavorite(id));
+        dispatch(allActions.addFavorite(id, token));
     }
 
     console.log('=================================')

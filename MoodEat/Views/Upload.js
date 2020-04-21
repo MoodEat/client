@@ -61,7 +61,7 @@ export default function Home(props) {
         let base64Img = `data:image/jpg;base64,${photo.base64}`;
         let data = {
                 "file": base64Img,
-                "upload_preset": "zzfte1lg",
+                "upload_preset": "pxfi7vm8",
             }
         
         fetch(CLOUDINARY_URL,{

@@ -17,14 +17,8 @@ export default function CameraScreen(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
-<<<<<<< HEAD
     
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
-||||||| merged common ancestors
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
-=======
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
->>>>>>> delete_favorite
 
   useEffect(() => {
     (async () => {
