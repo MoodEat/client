@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Icon, Button } from '@ui-kitten/components';
@@ -15,7 +15,7 @@ const FavIcon = (props) => (
 export default function Recommendation(props) {
     const dispatch = useDispatch()
     const restaurant = useSelector((state) => state.restaurant.restaurants);
-
+    const [mapsView, setMapsView] = useState(false)
     const loading = useSelector((state) => state.restaurant.loadingRest);
     const token = useSelector((state) => state.user.token);
     
@@ -103,10 +103,21 @@ export default function Recommendation(props) {
             </Text>
         )
     } 
+
+    if (mapsView) {
+        return (
+            <View>
+                <Text>Tes</Text>
+            </View>
+        )
+    }
         return (
             <Layout style={styles.container}>
                 <View style={styles.bottom_result}>
                     <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+                    <Button onPress={() => setMapsView(true)}>
+                        Maps View
+                    </Button>
                     <FlatList
                         data={restaurant}
                         renderItem={({ item, index }) => <Card card={item} />}
