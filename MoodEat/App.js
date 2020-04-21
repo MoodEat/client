@@ -5,6 +5,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { Provider } from 'react-redux';
 import Index from './index'
 import store from './stores/store';
+import { default as theme } from './custom-theme.json';
 
 
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
     <>
       <Provider store={store}>
         <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider {...eva} theme={eva.dark}>
+        <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
           <Index />
         </ApplicationProvider>
       </Provider>

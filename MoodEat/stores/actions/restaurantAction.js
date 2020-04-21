@@ -35,7 +35,7 @@ export const fetchRestaurant = (payload) => {
         setLoading(true);
         axios({
             method: 'get',
-            url: `http://localhost:3000/restaurant/${food}`,
+            url: `http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/restaurant/${food}`,
             headers: {
                 lat: latitude,
                 longtitude: longitude

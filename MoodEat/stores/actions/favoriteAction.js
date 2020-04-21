@@ -19,7 +19,7 @@ export const addFavorite = (id) => {
     return (dispatch) => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/favorites',
+            url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
             headers: {
                 token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
             },
@@ -48,7 +48,7 @@ export const fetchFavorite = () => {
     return (dispatch) => {
         axios({
             method: 'get',
-            url: 'http://localhost:3000/favorites',
+            url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
             headers: {
                 token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
             }
@@ -75,7 +75,7 @@ export const deleteFavorite = (id) => {
     return (dispatch) => {
         axios({
             method: 'delete',
-            url: `http://localhost:3000/favorites/${id}`,
+            url: `http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites/${id}`,
             headers: {
                 token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
             }
@@ -84,7 +84,7 @@ export const deleteFavorite = (id) => {
                 console.log('success delete data');
                 return axios({
                     method: 'get',
-                    url: 'http://localhost:3000/favorites',
+                    url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
                     headers: {
                         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOWRhYWZlODcxNjgwMzU4NDFhZjA0NiIsImVtYWlsIjoiaGlsbWkxOEBnbWFpbC5jb20iLCJpYXQiOjE1ODczOTEyNDd9.BptcB9KH3q4heG8Xdco7fVD8m-MLAo38soxiQAVjynQ'
                     }
