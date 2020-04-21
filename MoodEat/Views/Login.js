@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, TouchableWithoutFeedback } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import allActions from '../stores/actions';
 import { Layout, Text, Button, Icon, Input} from '@ui-kitten/components';
+import Loading from '../components/Loading'
 
 const EmailIcon = (props) => (
 <Icon {...props} name='email-outline'/>
@@ -13,6 +14,7 @@ export default function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const isLoading = useSelector((state) => state.user.isLoading);
 
     const toggleSecureEntry = () => {
         setSecureTextEntry(!secureTextEntry);
@@ -36,6 +38,12 @@ export default function Login(props) {
 
     function goRegisterScreen() {
         props.navigation.navigate('Register');
+    }
+
+    if(isLoading) {
+        return (
+            <Loading />
+        )
     }
 
 

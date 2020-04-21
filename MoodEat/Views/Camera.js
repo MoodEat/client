@@ -4,6 +4,7 @@ import allActions from '../stores/actions/index'
 import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Layout, Button, Icon } from '@ui-kitten/components';
+import Loading from '../components/Loading'
 
 const CameraIcon = (props) => (
   <Icon {...props} name='camera'/>
@@ -17,8 +18,10 @@ export default function CameraScreen(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
+    const [isLoading, setLoading] = useState(false)
+
     
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
 
   useEffect(() => {
     (async () => {
@@ -73,8 +76,9 @@ export default function CameraScreen(props) {
     let base64Img = `data:image/jpg;base64,${photo.base64}`;
     let data = {
             "file": base64Img,
-            "upload_preset": "sn1chgl3",
+            "upload_preset": "zzfte1lg",
           }
+    setLoading(true)
       fetch(CLOUDINARY_URL,{
         body: JSON.stringify(data),
         headers: {
@@ -113,7 +117,20 @@ export default function CameraScreen(props) {
                 dispatch(allActions.SET_USER(payload))
                 props.navigation.navigate('Result');
             }
-      }).catch(err => console.log(err))
+      })
+      .catch(err => {
+            console.log(err, 'ini error upload Gallery');
+        })
+        .finally(_=>{
+            setLoading(false)
+        })
+  }
+
+
+  if (isLoading) {
+        return (
+            <Loading />
+        )
   }
 
   if (photo !== null) {

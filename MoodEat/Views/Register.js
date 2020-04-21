@@ -50,7 +50,7 @@ export default function Register(props) {
             <Layout style={styles.layoutPage}>
                 <View style={styles.top}>
                     <Text category='h3' style={styles.text} >
-                        Welcome to MoodEat.
+                        Welcome to MoodEat
                     </Text>
                     <View style={styles.inputLayout}>
                         <Input

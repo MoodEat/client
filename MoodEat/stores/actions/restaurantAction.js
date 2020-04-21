@@ -9,8 +9,8 @@ const setRestaurant = (data) => {
     return { type: 'SET_RESTAURANT', payload: data };
 }
 
-const setLoading = (data) => {
-    return { type: 'SET_LOADING', payload: data };
+const setLoadingRest = (data) => {
+    return { type: 'SET_LOADINGREST', payload: data };
 }
 
 export const fetchRestaurant = (payload) => {
@@ -32,7 +32,7 @@ export const fetchRestaurant = (payload) => {
     console.log(`===========================`);
 
     return (dispatch) => {
-        setLoading(true);
+        dispatch(setLoadingRest(true))
         axios({
             method: 'get',
             url: `http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/restaurant/${food}`,
@@ -49,7 +49,7 @@ export const fetchRestaurant = (payload) => {
                 console.log(error);
             })
             .finally(_ => {
-                setLoading(false);
+                dispatch(setLoadingRest(false))
             })
     }
 }

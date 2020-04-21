@@ -1,5 +1,5 @@
 const initialState = {
-    loading: false,
+    loadingRest: false,
     error: null,
     restaurants: []
 }
@@ -10,10 +10,10 @@ export default function categoryReducer(state = initialState, action) {
             ...state,
             restaurants: action.payload
         }
-    } else if (action.type === 'SET_LOADING') {
+    } else if (action.type === 'SET_LOADINGREST') {
         return {
             ...state,
-            loading: action.payload
+            loadingRest: action.payload
         }
     }
     return state

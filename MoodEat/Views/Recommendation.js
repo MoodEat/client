@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text, Icon, Button } from '@ui-kitten/components';
 import allActions from '../stores/actions';
+import Loading from '../components/Loading'
+
 
 
 const FavIcon = (props) => (
@@ -13,13 +15,10 @@ const FavIcon = (props) => (
 export default function Recommendation(props) {
     const dispatch = useDispatch()
     const restaurant = useSelector((state) => state.restaurant.restaurants);
-    const loading = useSelector((state) => state.restaurant.loading);
+
+    const loading = useSelector((state) => state.restaurant.loadingRest);
     const token = useSelector((state) => state.user.token);
     
-    // console.log('===================');
-    // console.log('restaurant:', restaurant);
-    // console.log('===================');
-
     function handleClick(url) {
         props.navigation.navigate(
             'Detail',
@@ -28,6 +27,7 @@ export default function Recommendation(props) {
     }
 
     function handleAddFavorite(id) {
+
         console.log('=================================');
         console.log('restaurant id di recommendation:', id);
         console.log('=================================');
@@ -39,17 +39,10 @@ export default function Recommendation(props) {
 
     console.log('=================================')
     console.log('state favorite:', useSelector((state) => state.favorite.favorite))
+    console.log('state favorite:', useSelector((state) => state.restaurant))
     console.log('=================================')
 
-    if (loading) {
-        console.log('===================');
-        console.log('masuk loading');
-        console.log('===================');
-
-        return (
-            <Text style={styles.card_description}>Loading...</Text>
-        )
-    }
+    
 
     function Card({ card }) {
         let image = card.photo_url;
@@ -94,7 +87,11 @@ export default function Recommendation(props) {
         )
     }
 
-    if (restaurant.length == 0) {
+    if (loading) {
+        return (
+           <Loading />
+        )
+    } else if (restaurant.length == 0) {
         return (
             <Text style={styles.card_description}>
                 There is no restaurant on your nearby location
