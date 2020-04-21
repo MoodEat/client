@@ -78,10 +78,6 @@ export default function Result(props) {
                             <Text style={styles.result_description}>Gender: {gender}</Text>
                             <Text style={styles.result_description}>Age: {age}</Text>
                             <Text style={styles.result_description}>Your Mood: {mood}</Text>
-                            {/* <Text style={styles.result_description_name}>{mood}!</Text> */}
-                            <TouchableOpacity onPress={() => favoritePage()}>
-                                <Text style={styles.button}>Favorite Page</Text>
-                            </TouchableOpacity>
                         </View>
                     <View>
 
@@ -126,12 +122,15 @@ const styles = StyleSheet.create({
     result_photo: {
         height: 160,
         width: 160,
-        borderRadius: 100
+        borderRadius: 100,
+        borderColor: '#fff',
+        borderWidth: 5
     },
     result_description: {
         color: darkColor,
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 17,
+        fontWeight: 'bold',
+        paddingRight: 10
     },
     result_description_name: {
         color: darkColor,
@@ -142,20 +141,24 @@ const styles = StyleSheet.create({
     },
     result_description_container: {
         flexDirection: 'column',
-        marginLeft: 10,
-        height: '70%',
+        marginLeft: 0,
+        marginRight: 5,
+        height: '61%',
         justifyContent: 'center',
         backgroundColor: primaryColor,
+        borderTopRightRadius: 40,
+        borderBottomRightRadius: 40
     },
     result_photo_container: {
-        borderRadius: 100,
         borderColor: primaryColor,
-        borderWidth: 5,
+        backgroundColor: primaryColor,
         padding: 5,
         width: 180,
         height: 180,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderTopLeftRadius: 90,
+        borderBottomLeftRadius: 90
     },
     bottom_result: {
         flex: 4,

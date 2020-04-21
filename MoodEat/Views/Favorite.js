@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, RefreshControl, TouchableOpacity, FlatList } from 'react-native';
-import { Layout, Text } from '@ui-kitten/components';
+import { Layout, Text, Icon, Button } from '@ui-kitten/components';
 import allActions from '../stores/actions';
+
+const TrashIcon = (props) => (
+  <Icon {...props} name='trash'/>
+);
 
 export default function FavoriteScreen (props) {
     const dispatch = useDispatch();
@@ -21,7 +25,7 @@ export default function FavoriteScreen (props) {
 
         function handleClick(url) {
             props.navigation.navigate(
-                'WebViewTest',
+                'Detail',
                 { 'url': url }
             );
         }
@@ -32,17 +36,19 @@ export default function FavoriteScreen (props) {
 
         return (
             <View style={styles.card_container}>
-                <Image source={{ uri: image }} style={styles.card_image} />
+                    <TouchableOpacity onPress={() => handleClick(url)}>
+                        <Image source={{ uri: image }} style={styles.card_image} />
+                    </TouchableOpacity>
                 <View style={styles.card_description_container}>
                     <Text style={styles.card_description}>
                         {name}
                     </Text>
-                    <TouchableOpacity onPress={() => handleClick(url)}>
-                        <Text style={styles.button}>Details</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleDelete()}>
-                        <Text style={styles.button}>Delete</Text>
-                    </TouchableOpacity>
+                    <Button 
+                    appearance='ghost'
+                    status = 'danger'
+                    accessoryLeft={TrashIcon}
+                    onPress={() => handleDelete()}
+                    />
                 </View>
             </View>
         )

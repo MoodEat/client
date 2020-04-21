@@ -34,12 +34,8 @@ export default function Home(props) {
         props.navigation.navigate('Upload');
     }
 
-    function goResultScreen() {
-        console.log('masuk button result screen');
-        props.navigation.navigate('WebViewTest');
-    }
-
     function favoritePage() {
+        dispatch(allActions.fetchFavorite(token));
         props.navigation.navigate(
             'Favorite',
             { 'token': token }
@@ -53,8 +49,6 @@ export default function Home(props) {
             </View>
             <View style={styles.bottom}>
                 <Button style={styles.button} status='basic' onPress={goUploadScreen} > Take Mood </Button>
-
-                <Button style={styles.button} status='basic' onPress={goResultScreen} >Result</Button>
                 <Button style={styles.button} status='basic' onPress={() => favoritePage()} >Favorite Page</Button>
             </View>
         </Layout>
@@ -84,12 +78,12 @@ const styles = StyleSheet.create({
         width: '100%',
         borderTopRightRadius: 70,
         borderTopLeftRadius: 70,
-        flexDirection: 'row'
+        flexDirection: 'column'
     },
     button: {
         margin: 2,
-        borderRadius: 100,
+        borderRadius: 90,
         height: 100,
-        width: 80
+        width: 150
     }
 });
