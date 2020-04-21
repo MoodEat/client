@@ -81,17 +81,18 @@ export const deleteFavorite = (id, token) => {
         })
             .then(({ data }) => {
                 console.log('success delete data');
-                return axios({
-                    method: 'get',
-                    url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
-                    headers: {
-                        token
-                    }
-                })
+                // return axios({
+                //     method: 'get',
+                //     url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/favorites',
+                //     headers: {
+                //         token
+                //     }
+                // })
+                dispatch(fetchFavorite(token));
             })
-            .then(({ data }) => {
-                dispatch(getFavorite(data));
-            })
+            // .then(({ data }) => {
+            //     dispatch(getFavorite(data));
+            // })
             .catch(error => {
                 console.log('===========');
                 console.log('masuk fetch data habis delete error', error);
