@@ -10,9 +10,15 @@ export default function Home(props) {
     const dispatch = useDispatch();
     const [photo, setPhoto] = useState(null);
     const [visible, setVisible] = useState(false);
+<<<<<<< HEAD
   
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dbwku9tbs/image/upload';
   
+||||||| merged common ancestors
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/datfikq02/image/upload';
+=======
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dasc6rbcx/image/upload';
+>>>>>>> delete_favorite
     function goCameraScreen() {
         props.navigation.navigate('Camera');
     }
@@ -63,7 +69,13 @@ export default function Home(props) {
         let base64Img = `data:image/jpg;base64,${photo.base64}`;
         let data = {
                 "file": base64Img,
+<<<<<<< HEAD
                 "upload_preset": "sn1chgl3",
+||||||| merged common ancestors
+                "upload_preset": "zzfte1lg",
+=======
+                "upload_preset": "pxfi7vm8",
+>>>>>>> delete_favorite
             }
         
         fetch(CLOUDINARY_URL,{
