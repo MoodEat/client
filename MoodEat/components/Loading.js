@@ -24,7 +24,7 @@ export default class Loading extends React.Component {
             width: 400,
             height: 400,
           }}
-          source={require('../assets/19451-blue-preloader.json')}
+          source={require('../assets/17377-loading.json')}
         />
       </View>
     );

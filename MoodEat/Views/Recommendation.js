@@ -49,6 +49,7 @@ export default function Recommendation(props) {
         const name = card.name;
         const url = card.url;
         const id = card.idRestaurant;
+        const location = card.location.locality
 
         if (image == '') {
             image = 'https://i.imgur.com/0jEmiwl.jpg'
@@ -69,19 +70,21 @@ export default function Recommendation(props) {
         return (
             <View style={styles.card_container}>
                     <TouchableOpacity onPress={() => handleClick(url)}>
-                        {/* <Text style={styles.button}>Details</Text> */}
                         <Image source={{ uri: image }} style={styles.card_image} />
                     </TouchableOpacity>
                 <View style={styles.card_description_container}>
-                    <Text style={styles.card_description}>
-                        {name}
-                    </Text>
                     <Button 
                     appearance='ghost'
-                    status = 'basic'
+                    status = 'primary'
                     accessoryLeft={FavIcon}
                     onPress={() => handleAddFavorite(id)}
                     />
+                    <Text style={styles.card_description}>
+                        {name}
+                    </Text>
+                    <Text style={styles.card_description}>
+                        {location}
+                    </Text>
                 </View>
             </View>
         )
@@ -91,13 +94,15 @@ export default function Recommendation(props) {
         return (
            <Loading />
         )
-    } else if (restaurant.length == 0) {
+    } 
+    
+    if (restaurant.length == 0) {
         return (
             <Text style={styles.card_description}>
                 There is no restaurant on your nearby location
             </Text>
         )
-    } else {
+    } 
         return (
             <Layout style={styles.container}>
                 <View style={styles.bottom_result}>
@@ -110,7 +115,7 @@ export default function Recommendation(props) {
                 </View>
             </Layout>
         )
-    }
+    
 }
 
 const primaryColor = '#f0c869';
@@ -146,15 +151,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     card_description_container: {
-        height: 190,
+        height: '70%',
         width: '50%',
         paddingHorizontal: 20,
         backgroundColor: 'white',
         position: 'absolute',
         left: 0,
-        bottom: 0,
+        bottom: 30,
         justifyContent: 'center',
-        borderRadius: 10,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
 
     },
     card_description: {
