@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, Image, RefreshControl, TouchableOpacity, FlatList } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import allActions from '../stores/actions';
 
 export default function FavoriteScreen (props) {
     const dispatch = useDispatch();
-    let favorite = props.route.params.favorite;
-    // let refresh = false;
+    let favorite = useSelector((state) => state.favorite.favorite);
+    let token = props.route.params.token
+
+    useEffect(() => {
+        dispatch(allActions.fetchFavorite(token));
+    }, []);
 
     function Card({ card }) {
         const image = card.photo_url;
@@ -23,8 +27,7 @@ export default function FavoriteScreen (props) {
         }
         
         function handleDelete() {
-            dispatch(allActions.deleteFavorite(id));
-            favorite = props.route.params.favorite
+            dispatch(allActions.deleteFavorite(id, token));
         }
 
         return (
@@ -60,7 +63,6 @@ export default function FavoriteScreen (props) {
                         data={favorite}
                         renderItem={({ item, index }) => <Card card={item} />}
                         keyExtractor={(item, index) => index.toString()} 
-                        extraData={favorite}
                     />
                 </View>
             </Layout>

@@ -20,8 +20,6 @@ export default function Result(props) {
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
 
-    const favorite = useSelector((state) => state.favorite.favorite);
-
     console.log('=================================');
     console.log('mood:', mood);
     console.log('user:',user);
@@ -67,18 +65,12 @@ export default function Result(props) {
                 </View>
             </View>
         )
-    }
-
-    function favoritePage() {
-        props.navigation.navigate(
-            'Favorite',
-            { 'favorite': favorite }
-        );
-    }
+    }    
 
     return (
         <Layout style={styles.container}>
             <View style={styles.top_result}>
+
                         <View style={styles.result_photo_container}>
                             <Image source={{ uri: photo }} style={styles.result_photo} />
                         </View>
@@ -92,6 +84,7 @@ export default function Result(props) {
                             </TouchableOpacity>
                         </View>
                     <View>
+
                 </View>
             </View>
             <View style={styles.bottom_result}>

@@ -15,7 +15,10 @@ const FavIcon = (props) => (
 export default function Recommendation(props) {
     const dispatch = useDispatch()
     const restaurant = useSelector((state) => state.restaurant.restaurants);
+
     const loading = useSelector((state) => state.restaurant.loadingRest);
+    const token = useSelector((state) => state.user.token);
+    
     function handleClick(url) {
         props.navigation.navigate(
             'Detail',
@@ -24,10 +27,14 @@ export default function Recommendation(props) {
     }
 
     function handleAddFavorite(id) {
-        console.log('=================================')
-        console.log('restaurant id di recommendation:', id)
-        console.log('=================================')
-        dispatch(allActions.addFavorite(id));
+
+        console.log('=================================');
+        console.log('restaurant id di recommendation:', id);
+        console.log('=================================');
+        console.log('user token:', token);
+        console.log('=================================');
+
+        dispatch(allActions.addFavorite(id, token));
     }
 
     console.log('=================================')
