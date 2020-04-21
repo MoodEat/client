@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10
-
     },
     card_description_heading: {
         color: darkColor,

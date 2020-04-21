@@ -44,15 +44,12 @@ export default function FavoriteScreen(props) {
                     <Image source={{ uri: image }} style={styles.card_image} />
                 </TouchableOpacity>
                 <View style={styles.card_description_container}>
-                    <Text style={styles.card_description}>
+                    <Text style={styles.card_description_heading}>
                         {name}
                     </Text>
-                    <Button
-                        appearance='ghost'
-                        status='danger'
-                        accessoryLeft={TrashIcon}
-                        onPress={() => handleDelete()}
-                    />
+                    <TouchableOpacity onPress={() => handleDelete(id)} style={styles.image_button_container}>
+                    <Image source={{ uri: 'https://img.icons8.com/android/24/000000/delete.png' }}  style={styles.image_button}/>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -91,9 +88,10 @@ const darkColor = '#333';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: primaryColor,
         width: '100%',
-        padding: 20
+        padding: 20,
+        paddingBottom: 70,
     },
     empty_container: {
         flex: 1,
@@ -127,29 +125,33 @@ const styles = StyleSheet.create({
         height: 200,
         backgroundColor: 'white',
         marginTop: '5%',
-        width: 300,
+        width: '100%',
         borderRadius: 10,
     },
     card_image: {
-        width: 300,
+        width: '100%',
         height: 200,
         borderRadius: 10,
     },
     card_description_container: {
-        height: 190,
-        width: '50%',
+        height: '70%',
+        width: '60%',
         paddingHorizontal: 20,
         backgroundColor: 'white',
         position: 'absolute',
         left: 0,
-        bottom: 0,
+        bottom: 30,
         justifyContent: 'center',
-        borderRadius: 10,
-
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
     },
-    card_description: {
+    card_description_heading: {
         color: darkColor,
         fontWeight: 'bold',
+        backgroundColor: primaryColor,
+        borderRadius: 100,
+        // borderWidth: 
+        paddingHorizontal: 10
     },
     card_description_address: {
         color: darkColor,
@@ -168,5 +170,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingVertical: 5,
         paddingHorizontal: 15
+    },
+    image_button: {
+        height: 25,
+        width: 25,
+        tintColor: primaryColor,
+        zIndex: 5,
+        marginTop: 20
+    },
+    image_button_container: {
+        width: '100%',
+        alignItems: 'flex-end'
     }
 });
