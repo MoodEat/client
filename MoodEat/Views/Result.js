@@ -8,7 +8,8 @@ import allActions from '../stores/actions';
 export default function Result(props) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    
+    const token = useSelector((state) => state.user.token);
+
     const user = useSelector((state) => state.user);
     const mood = user.mood;
     const age = user.age;
@@ -22,16 +23,15 @@ export default function Result(props) {
 
     console.log('=================================');
     console.log('mood:', mood);
-    console.log('user:',user);
+    console.log('user:', user);
     console.log('=================================');
 
     useEffect(() => {
         dispatch(allActions.fetchRecommendation(mood));
-        dispatch(allActions.fetchFavorite());
     }, [dispatch])
 
     function handleClick(food) {
-        
+
         let payload = {
             food,
             latitude,
@@ -49,9 +49,9 @@ export default function Result(props) {
         const food = card.food;
 
         if (image == '') {
-            image = 'https://i.imgur.com/0jEmiwl.jpg'
+            image = 'https://i.imgur.com/h6TdPga.jpg'
         }
-        
+
         return (
             <View style={styles.card_container}>
                 <Image source={{ uri: image }} style={styles.card_image} />
@@ -65,21 +65,42 @@ export default function Result(props) {
                 </View>
             </View>
         )
-    }    
+    }
+
+    function favoritePage() {
+        props.navigation.navigate(
+            'Favorite',
+            { 'token': token }
+        )
+    }
 
     return (
         <Layout style={styles.container}>
             <View style={styles.top_result}>
 
-                        <View style={styles.result_photo_container}>
-                            <Image source={{ uri: photo }} style={styles.result_photo} />
-                        </View>
-                        <View style={styles.result_description_container} >
-                            <Text style={styles.result_description}>Gender: {gender}</Text>
-                            <Text style={styles.result_description}>Age: {age}</Text>
-                            <Text style={styles.result_description}>Your Mood: {mood}</Text>
-                        </View>
-                    <View>
+                <View style={styles.result_photo_container}>
+                    <Image source={{ uri: photo }} style={styles.result_photo} />
+                </View>
+                <View style={styles.result_description_container} >
+                    <Text style={styles.result_description}>Gender: {gender}</Text>
+                    <Text style={styles.result_description}>Age: {age}</Text>
+                    <Text style={styles.result_description}>Your Mood: {mood}</Text>
+                    <View style={styles.redirect_container}>
+                        <TouchableOpacity onPress={() => favoritePage()}>
+                            <View style={styles.redirect_favorite}>
+                                <Image style={styles.image_button} resizeMode="contain" source={{ uri: "https://img.icons8.com/material-rounded/96/000000/star.png" }} />
+                                <Text style={styles.result_description}>Favorite Page</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
+                            <View style={styles.redirect_favorite}>
+                                <Image style={styles.image_button} resizeMode="contain" source={{ uri: 'https://img.icons8.com/material-rounded/104/000000/home.png' }} />
+                                <Text style={styles.result_description}>Home Page</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View>
 
                 </View>
             </View>
@@ -109,7 +130,7 @@ const styles = StyleSheet.create({
         width: '100%',
 
     },
-    layoutTop:{
+    layoutTop: {
         backgroundColor: primaryColor,
     },
     top_result: {
@@ -231,5 +252,24 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 15,
         textAlign: 'center'
+    },
+    redirect_container: {
+        marginTop: 10,
+    },
+    image_button: {
+        height: 25,
+        width: 25,
+        tintColor: primaryColor,
+        borderRadius: 100,
+        padding: 10,
+        marginRight: 10
+    },
+    redirect_favorite: {
+        flexDirection: 'row',
+        borderRadius: 100,
+        backgroundColor: 'white',
+        width: '85%',
+        marginBottom: 10,
+        paddingHorizontal: 5
     }
 });

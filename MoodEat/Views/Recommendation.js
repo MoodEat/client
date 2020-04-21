@@ -52,7 +52,7 @@ export default function Recommendation(props) {
         const location = card.location.locality
 
         if (image == '') {
-            image = 'https://i.imgur.com/0jEmiwl.jpg'
+            image = 'https://i.imgur.com/h6TdPga.jpg'
         }
         let userToken
         const checkToken = async () => {

@@ -15,13 +15,17 @@ export default function FavoriteScreen (props) {
 
     useEffect(() => {
         dispatch(allActions.fetchFavorite(token));
-    }, []);
+    }, [dispatch]);
 
     function Card({ card }) {
-        const image = card.photo_url;
+        let image = card.photo_url;
         const name = card.name;
         const url = card.url;
         const id = card._id;
+
+        if(image == '') {
+            image = 'https://i.imgur.com/h6TdPga.jpg'
+        }
 
         function handleClick(url) {
             props.navigation.navigate(
