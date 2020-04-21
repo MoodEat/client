@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { Layout, Text, Icon, Button } from '@ui-kitten/components';
 import allActions from '../stores/actions';
 import Loading from '../components/Loading'
+import MapView, { Callout } from 'react-native-maps';
 
 
 
@@ -15,9 +16,18 @@ const FavIcon = (props) => (
 export default function Recommendation(props) {
     const dispatch = useDispatch()
     const restaurant = useSelector((state) => state.restaurant.restaurants);
-
+    const [mapsView, setMapsView] = useState(false)
     const loading = useSelector((state) => state.restaurant.loadingRest);
-    const token = useSelector((state) => state.user.token);
+    const user = useSelector((state) => state.user);
+    const token = user.token
+    const userLat = user.latitude
+    const userLot = user.longitude
+    const markers = restaurant
+
+    const userCoord = {
+        latitude: Number(userLat),
+        longitude: Number(userLot),
+    }
 
     function handleClick(url) {
         props.navigation.navigate(
@@ -104,10 +114,62 @@ export default function Recommendation(props) {
             </View >
         )
     }
+
+    if (mapsView) {
+        return (
+            <View style={styles.mapsContainer}>
+            <Button onPress={() => setMapsView(false)}>List View</Button>
+             <MapView style={styles.mapStyle} 
+                    initialRegion={{
+                    latitude: Number(userLat),
+                    longitude: Number(userLot),
+                    latitudeDelta: 0.09,
+                    longitudeDelta: 0.09
+                    }}>
+                        
+                <MapView.Marker
+                coordinate={userCoord}
+                title={'you'}
+                image={require('../assets/home.png')}
+                description={'you here'}
+                >
+                    
+                </MapView.Marker>
+
+                    { markers.map((marker, index) => {
+                        const coords = {
+                            latitude: Number(marker.location.latitude),
+                            longitude: Number(marker.location.longitude),
+                        };
+
+                return (
+                        <MapView.Marker
+                            key={index}
+                            coordinate={coords}
+                            title={marker.name}
+                            image={require('../assets/pin-outline.png')}
+                            description={marker.name}
+                            // showCallout={true}
+                            >
+                            <Callout onPress = {() => handleClick(marker.url)}>
+                            <View >
+                                <Text style={{color: darkColor}}>{marker.name}</Text>
+                                <Text style={{color: darkColor}}>{marker.location.locality}</Text>
+                            </View>
+                            </Callout>
+                            </MapView.Marker>
+                        
+                    );
+            })}
+                </MapView>
+            </View>
+                )
+    }
     return (
         <Layout style={styles.container}>
             <View style={styles.bottom_result}>
                 <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+                <Button onPress={() => setMapsView(true)}>Maps View</Button>
                 <FlatList
                     data={restaurant}
                     renderItem={({ item, index }) => <Card card={item} />}
@@ -223,5 +285,15 @@ const styles = StyleSheet.create({
     image_button_container: {
         width: '100%',
         alignItems: 'flex-end'
-    }
+    },
+    mapStyle: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  mapsContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
