@@ -90,10 +90,10 @@ export default function Recommendation(props) {
                         {location}
                     </Text>
                     <TouchableOpacity onPress={() => handleAddFavorite(id)} style={styles.image_button_container}>
-                    <Image source={{ uri: 'https://img.icons8.com/ios-filled/90/000000/like.png' }}  style={styles.image_button}/>
-                </TouchableOpacity>
+                        <Image source={{ uri: 'https://img.icons8.com/ios-filled/90/000000/like.png' }} style={styles.image_button} />
+                    </TouchableOpacity>
                 </View>
-                
+
             </View>
         )
     }
@@ -118,58 +118,60 @@ export default function Recommendation(props) {
     if (mapsView) {
         return (
             <View style={styles.mapsContainer}>
-            <Button onPress={() => setMapsView(false)}>List View</Button>
-             <MapView style={styles.mapStyle} 
+                    <Button onPress={() => setMapsView(false)} style={styles.list_view}>List View</Button>
+                <MapView style={styles.mapStyle}
                     initialRegion={{
-                    latitude: Number(userLat),
-                    longitude: Number(userLot),
-                    latitudeDelta: 0.09,
-                    longitudeDelta: 0.09
+                        latitude: Number(userLat),
+                        longitude: Number(userLot),
+                        latitudeDelta: 0.09,
+                        longitudeDelta: 0.09
                     }}>
-                        
-                <MapView.Marker
-                coordinate={userCoord}
-                title={'you'}
-                image={require('../assets/home.png')}
-                description={'you here'}
-                >
-                    
-                </MapView.Marker>
 
-                    { markers.map((marker, index) => {
+                    <MapView.Marker
+                        coordinate={userCoord}
+                        title={'you'}
+                        image={require('../assets/home.png')}
+                        description={'you here'}
+                    >
+
+                    </MapView.Marker>
+
+                    {markers.map((marker, index) => {
                         const coords = {
                             latitude: Number(marker.location.latitude),
                             longitude: Number(marker.location.longitude),
                         };
 
-                return (
-                        <MapView.Marker
-                            key={index}
-                            coordinate={coords}
-                            title={marker.name}
-                            image={require('../assets/pin-outline.png')}
-                            description={marker.name}
+                        return (
+                            <MapView.Marker
+                                key={index}
+                                coordinate={coords}
+                                title={marker.name}
+                                image={require('../assets/pin-outline.png')}
+                                description={marker.name}
                             // showCallout={true}
                             >
-                            <Callout onPress = {() => handleClick(marker.url)}>
-                            <View >
-                                <Text style={{color: darkColor}}>{marker.name}</Text>
-                                <Text style={{color: darkColor}}>{marker.location.locality}</Text>
-                            </View>
-                            </Callout>
+                                <Callout onPress={() => handleClick(marker.url)}>
+                                    <View >
+                                        <Text style={{ color: darkColor }}>{marker.name}</Text>
+                                        <Text style={{ color: darkColor }}>{marker.location.locality}</Text>
+                                    </View>
+                                </Callout>
                             </MapView.Marker>
-                        
-                    );
-            })}
+
+                        );
+                    })}
                 </MapView>
             </View>
-                )
+        )
     }
     return (
         <Layout style={styles.container}>
             <View style={styles.bottom_result}>
-                <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
-                <Button onPress={() => setMapsView(true)}>Maps View</Button>
+                <TouchableOpacity onPress={() => setMapsView(true)} style={styles.map_view_container}>
+                    <Text style={styles.recommendation_heading}>Restaurant Nearby</Text>
+                    <Image source={{ uri: "https://img.icons8.com/ios-glyphs/90/000000/map-marker.png" }} style={styles.image_button} />
+                </TouchableOpacity>
                 <FlatList
                     data={restaurant}
                     renderItem={({ item, index }) => <Card card={item} />}
@@ -218,7 +220,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingLeft: 10,
         paddingRight: 10,
-        marginBottom: 10,
         fontSize: 20,
     },
     card_container: {
@@ -244,7 +245,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10
-
     },
     card_description_heading: {
         color: darkColor,
@@ -287,14 +287,33 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'flex-end'
     },
+    mapStyle_top: {
+        flex: 2,
+    },
     mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-  mapsContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
+        flex: 4,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
+    mapsContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    map_view_container: {
+        width: '100%',
+        borderRadius: 100,
+        paddingHorizontal: 10,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    list_view: {
+        position: 'absolute',
+        zIndex: 10,
+        left: 10,
+        top: 10,
+    }
 });
