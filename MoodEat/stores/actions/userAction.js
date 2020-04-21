@@ -76,7 +76,7 @@ export function POST_LOGIN(data) {
     return (dispatch) => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/login',
+            url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/login',
             data: {
                 email, password
             }
@@ -117,7 +117,7 @@ export function POST_REGISTER(data) {
     return (dispatch) => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/register',
+            url: 'http://ec2-13-229-201-54.ap-southeast-1.compute.amazonaws.com:3000/register',
             data: {
                 name, email, password
             }
