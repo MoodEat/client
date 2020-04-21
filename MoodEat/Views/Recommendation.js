@@ -1,8 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
-import { Layout, Text } from '@ui-kitten/components';
+import { Layout, Text, Icon, Button } from '@ui-kitten/components';
 import allActions from '../stores/actions';
+
+
+const FavIcon = (props) => (
+  <Icon {...props} name='heart'/>
+);
+
 
 export default function Recommendation(props) {
     const dispatch = useDispatch()
@@ -69,17 +75,20 @@ export default function Recommendation(props) {
 
         return (
             <View style={styles.card_container}>
-                <Image source={{ uri: image }} style={styles.card_image} />
+                    <TouchableOpacity onPress={() => handleClick(url)}>
+                        {/* <Text style={styles.button}>Details</Text> */}
+                        <Image source={{ uri: image }} style={styles.card_image} />
+                    </TouchableOpacity>
                 <View style={styles.card_description_container}>
                     <Text style={styles.card_description}>
                         {name}
                     </Text>
-                    <TouchableOpacity onPress={() => handleClick(url)}>
-                        <Text style={styles.button}>Details</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleAddFavorite(id)}>
-                        <Text style={styles.button}>Add To Favorite</Text>
-                    </TouchableOpacity>
+                    <Button 
+                    appearance='ghost'
+                    status = 'basic'
+                    accessoryLeft={FavIcon}
+                    onPress={() => handleAddFavorite(id)}
+                    />
                 </View>
             </View>
         )
@@ -99,7 +108,7 @@ export default function Recommendation(props) {
                     <FlatList
                         data={restaurant}
                         renderItem={({ item, index }) => <Card card={item} />}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={item => item.idRestaurant}
                     />
                 </View>
             </Layout>

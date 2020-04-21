@@ -11,6 +11,8 @@ export default function Result(props) {
     
     const user = useSelector((state) => state.user);
     const mood = user.mood;
+    const age = user.age;
+    const gender = user.gender;
     const photo = user.photoUrl;
     const latitude = user.latitude;
     const longitude = user.longitude;
@@ -68,21 +70,21 @@ export default function Result(props) {
     return (
         <Layout style={styles.container}>
             <View style={styles.top_result}>
-                <View style={styles.result_photo_container}>
-                    <Image source={{ uri: photo }} style={styles.result_photo} />
-                </View>
-                <View style={styles.result_description_container} >
-                    <Text style={styles.result_description}>Hi There!</Text>
-                    <Text style={styles.result_description}>Based on your photo</Text>
-                    <Text style={styles.result_description}>We see a lot of</Text>
-                    <Text style={styles.result_description_name}>{mood}!</Text>
-                    
-                </View>
-                <View>
-                    
-                </View>
-                <View>
-                    
+
+                        <View style={styles.result_photo_container}>
+                            <Image source={{ uri: photo }} style={styles.result_photo} />
+                        </View>
+                        <View style={styles.result_description_container} >
+                            <Text style={styles.result_description}>Gender: {gender}</Text>
+                            <Text style={styles.result_description}>Age: {age}</Text>
+                            <Text style={styles.result_description}>Your Mood: {mood}</Text>
+                            {/* <Text style={styles.result_description_name}>{mood}!</Text> */}
+                            <TouchableOpacity onPress={() => favoritePage()}>
+                                <Text style={styles.button}>Favorite Page</Text>
+                            </TouchableOpacity>
+                        </View>
+                    <View>
+
                 </View>
             </View>
             <View style={styles.bottom_result}>
@@ -111,6 +113,9 @@ const styles = StyleSheet.create({
         width: '100%',
 
     },
+    layoutTop:{
+        backgroundColor: primaryColor,
+    },
     top_result: {
         flex: 2.5,
         width: '100%',
@@ -132,15 +137,15 @@ const styles = StyleSheet.create({
         color: darkColor,
         fontSize: 20,
         fontWeight: 'bold',
-        backgroundColor: primaryColor,
         borderRadius: 20,
         textAlign: 'center'
     },
     result_description_container: {
         flexDirection: 'column',
-        marginLeft: 20,
-        height: '100%',
+        marginLeft: 10,
+        height: '70%',
         justifyContent: 'center',
+        backgroundColor: primaryColor,
     },
     result_photo_container: {
         borderRadius: 100,
