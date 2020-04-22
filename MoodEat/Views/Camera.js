@@ -148,7 +148,9 @@ export default function CameraScreen(props) {
           appearance='ghost'
           status = 'basic'
           accessoryLeft={CameraIcon}  
-          onPress={takePicture} />
+          onPress={takePicture}
+          ratio={[4, 3]}
+          />
         <Button style={styles.buttonCamera}
           appearance='ghost'
           status='basic'
