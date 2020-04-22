@@ -19,10 +19,7 @@ export default function CameraScreen(props) {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [photo, setPhoto] = useState(null)
     const [isLoading, setLoading] = useState(false)
-
-    
     let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/do77uifoc/image/upload';
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();

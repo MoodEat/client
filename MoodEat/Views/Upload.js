@@ -74,15 +74,13 @@ export default function Home(props) {
         }).then(async r => {
             let result = await r.json()
             if (result.error) {
-                console.log('masuuuk');
                 Alert.alert(
                 'Sorry ......',
                 'Internal Server Error'
                 );
                 setPhoto(null)
                 return
-            } else if (result.info.detection.adv_face.data === undefined){
-                console.log('masuuuk');
+            } else if (result.info.detection.adv_face.data === undefined) {
                 Alert.alert(
                             'Face is not detected',
                             'Please retake your face picture'

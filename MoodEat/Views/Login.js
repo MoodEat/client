@@ -30,7 +30,6 @@ export default function Login(props) {
         let data = {
             email, password
         }
-        console.log(data,'--=-=-=');
         dispatch(allActions.POST_LOGIN(data))
         setEmail('')
         setPassword('')

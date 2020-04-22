@@ -79,8 +79,6 @@ export function SET_TOKEN(data) {
 
 export function POST_LOGIN(data) {
     let {email, password} = data
-    console.log('masuk------');
-    console.log(data);
     return (dispatch) => {
         dispatch(SET_LOADING(true))
         axios({
@@ -91,18 +89,13 @@ export function POST_LOGIN(data) {
             }
         })
         .then(({data}) => {
-            console.log('-----------------'); 
-            console.log(data);
             let {token} = data
-            console.log('-----------------');
-            console.log(token,'token');
             _storeData = async () => {
                 try {
                     await AsyncStorage.setItem('userToken', token);
                 } catch (error) {
                     // Error saving data
                     console.log(error,'ini');
-                    
                 }
             };
             if (token) {
@@ -122,8 +115,6 @@ export function POST_LOGIN(data) {
 
 export function POST_REGISTER(data) {
     let {name, email, password} = data
-    console.log('masuk------');
-    console.log(data);
     return (dispatch) => {
         axios({
             method: 'post',
@@ -133,12 +124,7 @@ export function POST_REGISTER(data) {
             }
         })
         .then(({data}) => {
-            console.log('-----------------'); 
-            console.log(data);
             let {token} = data
-            console.log('-----------------');
-            console.log(token,'token');
-            
             if (token) {
                 dispatch(SET_ISLOGIN(true))
                 dispatch(SET_TOKEN(token))
