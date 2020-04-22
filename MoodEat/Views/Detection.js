@@ -11,31 +11,31 @@ export default function DetectionPage(props) {
 
     switch (mood) {
         case 'anger':
-            mood = 'angry'
+            mood = 'an angry'
             break;
         case 'disgust':
-            mood = 'disgusted'
+            mood = 'a disgusted'
             break;
         case 'fear':
-            mood = 'scared'
+            mood = 'a scared'
             break;
         case 'happiness':
-            mood = 'happy'
+            mood = 'a happy'
             break;
         case 'neutral':
-            mood = 'neutral'
+            mood = 'a neutral'
             break;
         case 'sadness':
-            mood = 'sad'
+            mood = 'a sad'
             break;
         case 'surprise':
-            mood = 'surprised'
+            mood = 'a surprised'
             break;
         case 'contempt':
-            mood = 'contempt'
+            mood = 'a contempt'
             break;
         default:
-            mood = 'happy'
+            mood = 'a happy'
     }
 
     const age = user.age;
@@ -56,7 +56,7 @@ export default function DetectionPage(props) {
                     <Text style={styles.result_description_header}>Hi There!</Text>
                     <Text style={styles.result_description}>You look like a <Text style={styles.highlited_text}> {
                         age} years old {gender} </Text></Text>
-                    <Text style={styles.result_description}>It seems you are in a <Text style={styles.highlited_text}> {mood} </Text> mood</Text>
+                    <Text style={styles.result_description}>It seems you are in <Text style={styles.highlited_text}> {mood} mood </Text></Text>
                     <View style={styles.circle_container}>
                         <View style={styles.circle}></View>
                         <View style={styles.circle}></View>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingRight: 10,
         textAlign: 'center',
+        marginTop: 2
     },
     result_description_header: {
         color: darkColor,
@@ -163,7 +164,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingRight: 10,
         backgroundColor: primaryColor,
-        borderRadius: 50,
         marginHorizontal: 5,
     },
     circle: {
