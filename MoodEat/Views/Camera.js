@@ -21,7 +21,7 @@ export default function CameraScreen(props) {
     const [isLoading, setLoading] = useState(false)
 
     
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dasc6rbcx/image/upload';
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/do77uifoc/image/upload';
 
   useEffect(() => {
     (async () => {
@@ -65,10 +65,6 @@ export default function CameraScreen(props) {
                 {"mood": "sadness", "value": emotionValue.sadness },
                 {"mood": "surprise", "value": emotionValue.surprise}
             ]
-            // console.log('-----------------------------------');
-            // console.log(emotions);
-            // console.log('-----------------------------------');
-            
         return emotions.find(emotion => emotion.value === max)
     }
 
@@ -76,7 +72,7 @@ export default function CameraScreen(props) {
     let base64Img = `data:image/jpg;base64,${photo.base64}`;
     let data = {
             "file": base64Img,
-            "upload_preset": "pxfi7vm8",
+            "upload_preset": "sceysj5m",
           }
     setLoading(true)
       fetch(CLOUDINARY_URL,{
@@ -88,26 +84,24 @@ export default function CameraScreen(props) {
       }).then(async r => {
           let result = await r.json()
           if (result.error) {
-                console.log('masuuuk');
-                Alert.alert(
+            Alert.alert(
+              'Sorry ......',
+              'Internal Server Error'
+              );
+              setPhoto(null)
+              props.navigation.navigate('Upload');
+              return
+            } else if (result.info.detection.adv_face.data === undefined){
+              Alert.alert(
                             'Face is not detected',
                             'Please retake your face picture'
                 );
-                setPhoto(null)
-                props.navigation.navigate('Upload');
-                return
             } else {
                 let emotionValue = result.info.detection.adv_face.data[0].attributes.emotion
                 let mood = getMood(emotionValue).mood
                 let imageUrl = result.url
                 let age = result.info.detection.adv_face.data[0].attributes.age
                 let gender = result.info.detection.adv_face.data[0].attributes.gender
-                console.log('-----------------------------------');
-                console.log('imageUrl',imageUrl);
-                console.log('mooooood', mood);
-                console.log('age', age);
-                console.log('gender', gender);
-                console.log('-----------------------------------');
                 let payload = {
                   imageUrl,
                   mood,

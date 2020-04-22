@@ -37,22 +37,8 @@ export default function Recommendation(props) {
     }
 
     function handleAddFavorite(id) {
-
-        console.log('=================================');
-        console.log('restaurant id di recommendation:', id);
-        console.log('=================================');
-        console.log('user token:', token);
-        console.log('=================================');
-
         dispatch(allActions.addFavorite(id, token));
     }
-
-    console.log('=================================')
-    console.log('state favorite:', useSelector((state) => state.favorite.favorite))
-    console.log('state favorite:', useSelector((state) => state.restaurant))
-    console.log('=================================')
-
-
 
     function Card({ card }) {
         let image = card.photo_url;
@@ -63,18 +49,6 @@ export default function Recommendation(props) {
 
         if (image == '') {
             image = 'https://i.imgur.com/h6TdPga.jpg'
-        }
-        let userToken
-        const checkToken = async () => {
-            try {
-                userToken = await AsyncStorage.getItem('userToken');
-            } catch (e) {
-                // Restoring token failed
-            }
-            if (userToken) {
-                // dispatch(allActions.SET_ISLOGIN(true));
-                console.log(userToken, 'masuuuuk');
-            }
         }
 
         return (
@@ -129,9 +103,8 @@ export default function Recommendation(props) {
 
                     <MapView.Marker
                         coordinate={userCoord}
-                        title={'you'}
-                        image={require('../assets/home.png')}
-                        description={'you here'}
+                        title={'You Here'}
+                        image={require('../assets/pinuser.png')}
                     >
 
                     </MapView.Marker>
@@ -147,9 +120,8 @@ export default function Recommendation(props) {
                                 key={index}
                                 coordinate={coords}
                                 title={marker.name}
-                                image={require('../assets/pin-outline.png')}
+                                image={require('../assets/newpin.png')}
                                 description={marker.name}
-                            // showCallout={true}
                             >
                                 <Callout onPress={() => handleClick(marker.url)}>
                                     <View >
