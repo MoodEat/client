@@ -20,12 +20,6 @@ export default function Result(props) {
 
     const category = useSelector((state) => state.category);
     const recommendation = category.recommendation;
-
-    console.log('=================================');
-    console.log('mood:', mood);
-    console.log('user:', user);
-    console.log('=================================');
-
     useEffect(() => {
         dispatch(allActions.fetchRecommendation(mood));
     }, [dispatch])

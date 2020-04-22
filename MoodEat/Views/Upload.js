@@ -14,7 +14,7 @@ export default function Home(props) {
 
     const [isLoading, setLoading] = useState(false)
   
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dasc6rbcx/image/upload';
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/do77uifoc/image/upload';
   
     function goCameraScreen() {
         props.navigation.navigate('Camera');
@@ -55,10 +55,6 @@ export default function Home(props) {
                 {"mood": "sadness", "value": emotionValue.sadness },
                 {"mood": "surprise", "value": emotionValue.surprise}
             ]
-            // console.log('-----------------------------------');
-            // console.log(emotions);
-            // console.log('-----------------------------------');
-            
         return emotions.find(emotion => emotion.value === max)
     }
 
@@ -66,7 +62,7 @@ export default function Home(props) {
         let base64Img = `data:image/jpg;base64,${photo.base64}`;
         let data = {
                 "file": base64Img,
-                "upload_preset": "pxfi7vm8",
+                "upload_preset": "sceysj5m",
             }
         setLoading(true)
         fetch(CLOUDINARY_URL,{
@@ -77,33 +73,26 @@ export default function Home(props) {
             method: 'POST'
         }).then(async r => {
             let result = await r.json()
-            // console.log('--------------');
-            
-            // console.log(result);
-
-            // console.log('--------------');
-
-            
             if (result.error) {
+                console.log('masuuuk');
+                Alert.alert(
+                'Sorry ......',
+                'Internal Server Error'
+                );
+                setPhoto(null)
+                return
+            } else if (result.info.detection.adv_face.data === undefined){
                 console.log('masuuuk');
                 Alert.alert(
                             'Face is not detected',
                             'Please retake your face picture'
                 );
-                setPhoto(null)
-                return
             } else {
                 let emotionValue = result.info.detection.adv_face.data[0].attributes.emotion
                 let mood = getMood(emotionValue).mood
                 let imageUrl = result.url
                 let age = result.info.detection.adv_face.data[0].attributes.age
                 let gender = result.info.detection.adv_face.data[0].attributes.gender
-                console.log('-----------------------------------');
-                console.log('imageUrl',imageUrl);
-                console.log('mooooood', mood);
-                console.log('age', age);
-                console.log('gender', gender);
-                console.log('-----------------------------------');
                 let payload = {
                     imageUrl,
                     mood,
@@ -120,7 +109,6 @@ export default function Home(props) {
         .finally(_=>{
             setLoading(false)
         })
-
     }
 
     if (isLoading) {
