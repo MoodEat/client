@@ -67,7 +67,6 @@ export default function Recommendation(props) {
                         <Image source={{ uri: 'https://img.icons8.com/ios-filled/90/000000/like.png' }} style={styles.image_button} />
                     </TouchableOpacity>
                 </View>
-
             </View>
         )
     }

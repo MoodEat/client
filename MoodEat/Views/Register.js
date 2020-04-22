@@ -33,7 +33,6 @@ export default function Register(props) {
         let data = {
             name,email, password
         }
-        console.log(data,'--=-=-=');
         dispatch(allActions.POST_REGISTER(data))
         setName('')
         setEmail('')
